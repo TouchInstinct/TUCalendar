@@ -35,7 +35,7 @@
 
 - (void)setFirstDateOfWeek:(nonnull NSDate *)firstDayInWeek
             withDataSource:(nonnull id<TUCalendarWeekTableViewCellDataSource>)dataSource
-               monthNumber:(NSInteger)monthNumber
+          currentMonthDate:(nullable NSDate *)currentMonthDate
              departureDate:(nullable NSDate *)departureDate
                 returnDate:(nullable NSDate *)returnDate;
 

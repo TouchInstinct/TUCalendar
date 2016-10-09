@@ -241,7 +241,7 @@ static const NSInteger kNumberOfDaysInWeek = 7;
 
     [weekCell setFirstDateOfWeek:rowFirstDayInWeek
                   withDataSource:self
-                     monthNumber:[self.calendar component:NSCalendarUnitMonth fromDate:monthDateForSection]
+                currentMonthDate:monthDateForSection
                    departureDate:self.departureDate
                       returnDate:self.returnDate];
 

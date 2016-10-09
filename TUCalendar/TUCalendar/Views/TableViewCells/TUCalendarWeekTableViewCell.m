@@ -91,7 +91,7 @@ static NSUInteger const kNumberOfDaysInWeek = 7;
 
 - (void)setFirstDateOfWeek:(nonnull NSDate *)firstDayInWeek
             withDataSource:(nonnull id<TUCalendarWeekTableViewCellDataSource>)dataSource
-               monthNumber:(NSInteger)monthNumber
+          currentMonthDate:(nullable NSDate *)currentMonthDate
              departureDate:(nullable NSDate *)departureDate
                 returnDate:(nullable NSDate *)returnDate {
     if (!self.weekCellAppearance) {
@@ -104,8 +104,14 @@ static NSUInteger const kNumberOfDaysInWeek = 7;
 
     NSMutableArray *weekSettings = [NSMutableArray arrayWithCapacity:daysCount];
 
+    NSInteger monthNumber = [self.calendar component:NSCalendarUnitMonth fromDate:currentMonthDate];
+
     NSInteger departureDateMonth = [self.calendar component:NSCalendarUnitMonth fromDate:departureDate];
     NSInteger returnDateMonth = [self.calendar component:NSCalendarUnitMonth fromDate:returnDate];
+
+    NSInteger departureMonthAndYearFlag = departureDateMonth + [self.calendar component:kCFCalendarUnitYear fromDate:departureDate] * 12;
+    NSInteger returnMonthAndYearFlag = returnDateMonth + [self.calendar component:kCFCalendarUnitYear fromDate:returnDate] * 12;
+    NSInteger currentMonthAndYearFlag = monthNumber + [self.calendar component:kCFCalendarUnitYear fromDate:currentMonthDate] * 12;
 
     NSDate *lastDayOfWeek = [self.calendar dateByAddingUnit:NSCalendarUnitDay value:daysCount + 1 toDate:firstDayInWeek options:0];
 
@@ -124,29 +130,29 @@ static NSUInteger const kNumberOfDaysInWeek = 7;
             BOOL returnDateOnThisWeek = [returnDate isDateBetweenStartDate:firstDayInWeek andEndDate:lastDayOfWeek];
 
             if (departureDateOnThisWeek && returnDateOnThisWeek) {
-                if (departureDateMonth == returnDateMonth) {
-                    if (departureDateMonth != monthNumber
-                            || [currentDayDate compare:returnDate] == NSOrderedDescending
-                            || [currentDayDate compare:departureDate] == NSOrderedAscending)
+                if (departureMonthAndYearFlag == returnMonthAndYearFlag) {
+                    if (departureMonthAndYearFlag != currentMonthAndYearFlag
+                        || [currentDayDate compare:returnDate] == NSOrderedDescending
+                        || [currentDayDate compare:departureDate] == NSOrderedAscending)
                         currentDateSettings.selectionOptions = TUCalendarDayViewSelectionNone;
-                } else if ([currentDayDate compare:returnDate] == NSOrderedDescending && returnDateMonth <= monthNumber) {
+                } else if ([currentDayDate compare:returnDate] == NSOrderedDescending
+                           && returnMonthAndYearFlag <= currentMonthAndYearFlag) {
                     currentDateSettings.selectionOptions = TUCalendarDayViewSelectionNone;
                 } else {
                     currentDateSettings.selectionOptions = TUCalendarDayViewSelectionFull;
                 }
             } else if (departureDateOnThisWeek) {
-                if (monthNumber > departureDateMonth) {
+                if (currentMonthAndYearFlag > departureMonthAndYearFlag) {
                     currentDateSettings.selectionOptions = TUCalendarDayViewSelectionFull;
                 } else if ([currentDayDate compare:departureDate] == NSOrderedAscending
-                        || monthNumber < departureDateMonth) {
+                           || currentMonthAndYearFlag < departureMonthAndYearFlag) {
                     currentDateSettings.selectionOptions = TUCalendarDayViewSelectionNone;
                 }
             } else if (returnDateOnThisWeek) {
-                if (monthNumber < returnDateMonth) {
-                    currentDateSettings.selectionOptions = currentDateSettings.isInvisibleDay ? TUCalendarDayViewSelectionNone
-                                                                                              : TUCalendarDayViewSelectionFull;
+                if (currentMonthAndYearFlag < returnMonthAndYearFlag) {
+                    currentDateSettings.selectionOptions = TUCalendarDayViewSelectionFull;
                 } else if ([currentDayDate compare:returnDate] == NSOrderedDescending
-                        || monthNumber > returnDateMonth) {
+                           || currentMonthAndYearFlag > returnMonthAndYearFlag) {
                     currentDateSettings.selectionOptions = TUCalendarDayViewSelectionNone;
                 }
             }
