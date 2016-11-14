@@ -1,0 +1,570 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		782DFDFD1DD9CA72004E651A /* TUCalendar.h in Headers */ = {isa = PBXBuildFile; fileRef = 782DFDFB1DD9CA72004E651A /* TUCalendar.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		782DFE111DD9CC65004E651A /* TUCalendarDayView.h in Headers */ = {isa = PBXBuildFile; fileRef = 782DFE0F1DD9CC65004E651A /* TUCalendarDayView.h */; };
+		782DFE121DD9CC65004E651A /* TUCalendarDayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 782DFE101DD9CC65004E651A /* TUCalendarDayView.m */; };
+		782DFE1F1DD9CE12004E651A /* TUColor.h in Headers */ = {isa = PBXBuildFile; fileRef = 782DFE1B1DD9CE12004E651A /* TUColor.h */; };
+		782DFE201DD9CE12004E651A /* TUColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 782DFE1C1DD9CE12004E651A /* TUColor.m */; };
+		782DFE211DD9CE12004E651A /* TUFont.h in Headers */ = {isa = PBXBuildFile; fileRef = 782DFE1D1DD9CE12004E651A /* TUFont.h */; };
+		782DFE221DD9CE12004E651A /* TUFont.m in Sources */ = {isa = PBXBuildFile; fileRef = 782DFE1E1DD9CE12004E651A /* TUFont.m */; };
+		782DFE291DD9CE73004E651A /* NSCalendar+TimeUnits.h in Headers */ = {isa = PBXBuildFile; fileRef = 782DFE271DD9CE73004E651A /* NSCalendar+TimeUnits.h */; };
+		782DFE2A1DD9CE73004E651A /* NSCalendar+TimeUnits.m in Sources */ = {isa = PBXBuildFile; fileRef = 782DFE281DD9CE73004E651A /* NSCalendar+TimeUnits.m */; };
+		782DFE2D1DD9CE99004E651A /* UITableViewCell+DequeueFromTableView.h in Headers */ = {isa = PBXBuildFile; fileRef = 782DFE2B1DD9CE99004E651A /* UITableViewCell+DequeueFromTableView.h */; };
+		782DFE2E1DD9CE99004E651A /* UITableViewCell+DequeueFromTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 782DFE2C1DD9CE99004E651A /* UITableViewCell+DequeueFromTableView.m */; };
+		782DFE381DD9D247004E651A /* NSCalendar+ApplicationCalendars.h in Headers */ = {isa = PBXBuildFile; fileRef = 782DFE361DD9D247004E651A /* NSCalendar+ApplicationCalendars.h */; };
+		782DFE391DD9D247004E651A /* NSCalendar+ApplicationCalendars.m in Sources */ = {isa = PBXBuildFile; fileRef = 782DFE371DD9D247004E651A /* NSCalendar+ApplicationCalendars.m */; };
+		782DFE3F1DD9D304004E651A /* TUReuseIdentifierProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 782DFE3E1DD9D304004E651A /* TUReuseIdentifierProtocol.h */; };
+		782DFE411DD9D33E004E651A /* TUViewStaticNibNameProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 782DFE401DD9D33E004E651A /* TUViewStaticNibNameProtocol.h */; };
+		782DFE441DD9D3D3004E651A /* UITableView+CellRegistration.h in Headers */ = {isa = PBXBuildFile; fileRef = 782DFE421DD9D3D3004E651A /* UITableView+CellRegistration.h */; };
+		782DFE451DD9D3D3004E651A /* UITableView+CellRegistration.m in Sources */ = {isa = PBXBuildFile; fileRef = 782DFE431DD9D3D3004E651A /* UITableView+CellRegistration.m */; };
+		782DFE4B1DD9D51E004E651A /* NSDateFormatter+TUDateFormatters.h in Headers */ = {isa = PBXBuildFile; fileRef = 782DFE491DD9D51E004E651A /* NSDateFormatter+TUDateFormatters.h */; };
+		782DFE4C1DD9D51E004E651A /* NSDateFormatter+TUDateFormatters.m in Sources */ = {isa = PBXBuildFile; fileRef = 782DFE4A1DD9D51E004E651A /* NSDateFormatter+TUDateFormatters.m */; };
+		782DFE571DD9D951004E651A /* TUCalendarViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 782DFE551DD9D951004E651A /* TUCalendarViewController.h */; };
+		782DFE581DD9D951004E651A /* TUCalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 782DFE561DD9D951004E651A /* TUCalendarViewController.m */; };
+		782DFE5B1DD9D971004E651A /* TUCalendarWeekTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 782DFE591DD9D971004E651A /* TUCalendarWeekTableViewCell.h */; };
+		782DFE5C1DD9D971004E651A /* TUCalendarWeekTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 782DFE5A1DD9D971004E651A /* TUCalendarWeekTableViewCell.m */; };
+		782DFE5F1DD9DB47004E651A /* NSDate+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 782DFE5D1DD9DB47004E651A /* NSDate+Extensions.m */; };
+		782DFE601DD9DB47004E651A /* NSDate+Extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 782DFE5E1DD9DB47004E651A /* NSDate+Extensions.h */; };
+		782DFE631DD9E3BF004E651A /* TUDateFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = 782DFE611DD9E3BF004E651A /* TUDateFormatter.h */; };
+		782DFE641DD9E3BF004E651A /* TUDateFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 782DFE621DD9E3BF004E651A /* TUDateFormatter.m */; };
+		782DFE681DD9E48E004E651A /* TUUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 782DFE671DD9E48E004E651A /* TUUtils.h */; };
+		782DFE6B1DD9E515004E651A /* TUCalendarMonthSectionView.h in Headers */ = {isa = PBXBuildFile; fileRef = 782DFE691DD9E515004E651A /* TUCalendarMonthSectionView.h */; };
+		782DFE6C1DD9E515004E651A /* TUCalendarMonthSectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 782DFE6A1DD9E515004E651A /* TUCalendarMonthSectionView.m */; };
+		782DFE6F1DD9E561004E651A /* UIView+AutoReuseIdentifier.h in Headers */ = {isa = PBXBuildFile; fileRef = 782DFE6D1DD9E561004E651A /* UIView+AutoReuseIdentifier.h */; };
+		782DFE701DD9E561004E651A /* UIView+AutoReuseIdentifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 782DFE6E1DD9E561004E651A /* UIView+AutoReuseIdentifier.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		782DFDF81DD9CA71004E651A /* TUCalendar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TUCalendar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		782DFDFB1DD9CA72004E651A /* TUCalendar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TUCalendar.h; sourceTree = "<group>"; };
+		782DFDFC1DD9CA72004E651A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		782DFE0F1DD9CC65004E651A /* TUCalendarDayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TUCalendarDayView.h; sourceTree = "<group>"; };
+		782DFE101DD9CC65004E651A /* TUCalendarDayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TUCalendarDayView.m; sourceTree = "<group>"; };
+		782DFE171DD9CE04004E651A /* FiraSans-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FiraSans-Light.ttf"; sourceTree = "<group>"; };
+		782DFE181DD9CE04004E651A /* FiraSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FiraSans-Regular.ttf"; sourceTree = "<group>"; };
+		782DFE191DD9CE04004E651A /* FiraSans-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FiraSans-Medium.ttf"; sourceTree = "<group>"; };
+		782DFE1A1DD9CE04004E651A /* FiraSans-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FiraSans-Italic.ttf"; sourceTree = "<group>"; };
+		782DFE1B1DD9CE12004E651A /* TUColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TUColor.h; sourceTree = "<group>"; };
+		782DFE1C1DD9CE12004E651A /* TUColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TUColor.m; sourceTree = "<group>"; };
+		782DFE1D1DD9CE12004E651A /* TUFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TUFont.h; sourceTree = "<group>"; };
+		782DFE1E1DD9CE12004E651A /* TUFont.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TUFont.m; sourceTree = "<group>"; };
+		782DFE271DD9CE73004E651A /* NSCalendar+TimeUnits.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSCalendar+TimeUnits.h"; sourceTree = "<group>"; };
+		782DFE281DD9CE73004E651A /* NSCalendar+TimeUnits.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSCalendar+TimeUnits.m"; sourceTree = "<group>"; };
+		782DFE2B1DD9CE99004E651A /* UITableViewCell+DequeueFromTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableViewCell+DequeueFromTableView.h"; sourceTree = "<group>"; };
+		782DFE2C1DD9CE99004E651A /* UITableViewCell+DequeueFromTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableViewCell+DequeueFromTableView.m"; sourceTree = "<group>"; };
+		782DFE361DD9D247004E651A /* NSCalendar+ApplicationCalendars.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSCalendar+ApplicationCalendars.h"; sourceTree = "<group>"; };
+		782DFE371DD9D247004E651A /* NSCalendar+ApplicationCalendars.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSCalendar+ApplicationCalendars.m"; sourceTree = "<group>"; };
+		782DFE3E1DD9D304004E651A /* TUReuseIdentifierProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TUReuseIdentifierProtocol.h; sourceTree = "<group>"; };
+		782DFE401DD9D33E004E651A /* TUViewStaticNibNameProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TUViewStaticNibNameProtocol.h; sourceTree = "<group>"; };
+		782DFE421DD9D3D3004E651A /* UITableView+CellRegistration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+CellRegistration.h"; sourceTree = "<group>"; };
+		782DFE431DD9D3D3004E651A /* UITableView+CellRegistration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+CellRegistration.m"; sourceTree = "<group>"; };
+		782DFE491DD9D51E004E651A /* NSDateFormatter+TUDateFormatters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDateFormatter+TUDateFormatters.h"; sourceTree = "<group>"; };
+		782DFE4A1DD9D51E004E651A /* NSDateFormatter+TUDateFormatters.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDateFormatter+TUDateFormatters.m"; sourceTree = "<group>"; };
+		782DFE551DD9D951004E651A /* TUCalendarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TUCalendarViewController.h; sourceTree = "<group>"; };
+		782DFE561DD9D951004E651A /* TUCalendarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TUCalendarViewController.m; sourceTree = "<group>"; };
+		782DFE591DD9D971004E651A /* TUCalendarWeekTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TUCalendarWeekTableViewCell.h; sourceTree = "<group>"; };
+		782DFE5A1DD9D971004E651A /* TUCalendarWeekTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TUCalendarWeekTableViewCell.m; sourceTree = "<group>"; };
+		782DFE5D1DD9DB47004E651A /* NSDate+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Extensions.m"; sourceTree = "<group>"; };
+		782DFE5E1DD9DB47004E651A /* NSDate+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Extensions.h"; sourceTree = "<group>"; };
+		782DFE611DD9E3BF004E651A /* TUDateFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TUDateFormatter.h; sourceTree = "<group>"; };
+		782DFE621DD9E3BF004E651A /* TUDateFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TUDateFormatter.m; sourceTree = "<group>"; };
+		782DFE671DD9E48E004E651A /* TUUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TUUtils.h; sourceTree = "<group>"; };
+		782DFE691DD9E515004E651A /* TUCalendarMonthSectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TUCalendarMonthSectionView.h; sourceTree = "<group>"; };
+		782DFE6A1DD9E515004E651A /* TUCalendarMonthSectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TUCalendarMonthSectionView.m; sourceTree = "<group>"; };
+		782DFE6D1DD9E561004E651A /* UIView+AutoReuseIdentifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+AutoReuseIdentifier.h"; sourceTree = "<group>"; };
+		782DFE6E1DD9E561004E651A /* UIView+AutoReuseIdentifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+AutoReuseIdentifier.m"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		782DFDF41DD9CA71004E651A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		782DFDEE1DD9CA71004E651A = {
+			isa = PBXGroup;
+			children = (
+				782DFDFA1DD9CA72004E651A /* TUCalendar */,
+				782DFDF91DD9CA71004E651A /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		782DFDF91DD9CA71004E651A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				782DFDF81DD9CA71004E651A /* TUCalendar.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		782DFDFA1DD9CA72004E651A /* TUCalendar */ = {
+			isa = PBXGroup;
+			children = (
+				C372132797FDF5114B56C8E3 /* Extensions */,
+				C3721405DF0320CE8C463760 /* Protocols */,
+				C3721E0F0C2B64DD3115F709 /* Views */,
+				C3721D2DA0858AD0655566C9 /* Controllers */,
+				C37219620F587B3814D33DAD /* Appearance */,
+				C37218A1DA77E999374BCD6F /* Formatters */,
+				C3721A967E39281D2D61B395 /* Utils */,
+				C3721FC4E0D948099413396D /* Resources */,
+				782DFDFB1DD9CA72004E651A /* TUCalendar.h */,
+				782DFDFC1DD9CA72004E651A /* Info.plist */,
+			);
+			path = TUCalendar;
+			sourceTree = "<group>";
+		};
+		C3721128D757CFFEA457842B /* TableViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				782DFE591DD9D971004E651A /* TUCalendarWeekTableViewCell.h */,
+				782DFE5A1DD9D971004E651A /* TUCalendarWeekTableViewCell.m */,
+			);
+			path = TableViewCells;
+			sourceTree = "<group>";
+		};
+		C372115FD17048106D94D056 /* UIView */ = {
+			isa = PBXGroup;
+			children = (
+				782DFE6D1DD9E561004E651A /* UIView+AutoReuseIdentifier.h */,
+				782DFE6E1DD9E561004E651A /* UIView+AutoReuseIdentifier.m */,
+			);
+			path = UIView;
+			sourceTree = "<group>";
+		};
+		C372132797FDF5114B56C8E3 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				C37214B7A8244D7FC65AF3FC /* UITableView */,
+				C3721CFD6A2A7A48131D0A8B /* NSDate */,
+				C372178B3170B4D0639AAC89 /* NSCalendar */,
+				C3721BF2158F1666B1D02B8B /* UITableViewCell */,
+				C3721F2BFD19BF73F61CFB3A /* NSDateFormatter */,
+				C372115FD17048106D94D056 /* UIView */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		C3721405DF0320CE8C463760 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				782DFE3E1DD9D304004E651A /* TUReuseIdentifierProtocol.h */,
+				782DFE401DD9D33E004E651A /* TUViewStaticNibNameProtocol.h */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		C37214B7A8244D7FC65AF3FC /* UITableView */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = UITableView;
+			sourceTree = "<group>";
+		};
+		C372151C4367FC49094A0436 /* FiraSans */ = {
+			isa = PBXGroup;
+			children = (
+				782DFE171DD9CE04004E651A /* FiraSans-Light.ttf */,
+				782DFE181DD9CE04004E651A /* FiraSans-Regular.ttf */,
+				782DFE191DD9CE04004E651A /* FiraSans-Medium.ttf */,
+				782DFE1A1DD9CE04004E651A /* FiraSans-Italic.ttf */,
+			);
+			path = FiraSans;
+			sourceTree = "<group>";
+		};
+		C372178B3170B4D0639AAC89 /* NSCalendar */ = {
+			isa = PBXGroup;
+			children = (
+				782DFE271DD9CE73004E651A /* NSCalendar+TimeUnits.h */,
+				782DFE281DD9CE73004E651A /* NSCalendar+TimeUnits.m */,
+				782DFE361DD9D247004E651A /* NSCalendar+ApplicationCalendars.h */,
+				782DFE371DD9D247004E651A /* NSCalendar+ApplicationCalendars.m */,
+			);
+			path = NSCalendar;
+			sourceTree = "<group>";
+		};
+		C3721834FBF19D74E6361200 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				C372151C4367FC49094A0436 /* FiraSans */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		C37218A1DA77E999374BCD6F /* Formatters */ = {
+			isa = PBXGroup;
+			children = (
+				782DFE611DD9E3BF004E651A /* TUDateFormatter.h */,
+				782DFE621DD9E3BF004E651A /* TUDateFormatter.m */,
+			);
+			path = Formatters;
+			sourceTree = "<group>";
+		};
+		C37219620F587B3814D33DAD /* Appearance */ = {
+			isa = PBXGroup;
+			children = (
+				782DFE1B1DD9CE12004E651A /* TUColor.h */,
+				782DFE1C1DD9CE12004E651A /* TUColor.m */,
+				782DFE1D1DD9CE12004E651A /* TUFont.h */,
+				782DFE1E1DD9CE12004E651A /* TUFont.m */,
+			);
+			path = Appearance;
+			sourceTree = "<group>";
+		};
+		C3721A967E39281D2D61B395 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				782DFE671DD9E48E004E651A /* TUUtils.h */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		C3721BF2158F1666B1D02B8B /* UITableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				782DFE421DD9D3D3004E651A /* UITableView+CellRegistration.h */,
+				782DFE431DD9D3D3004E651A /* UITableView+CellRegistration.m */,
+				782DFE2B1DD9CE99004E651A /* UITableViewCell+DequeueFromTableView.h */,
+				782DFE2C1DD9CE99004E651A /* UITableViewCell+DequeueFromTableView.m */,
+			);
+			path = UITableViewCell;
+			sourceTree = "<group>";
+		};
+		C3721CFD6A2A7A48131D0A8B /* NSDate */ = {
+			isa = PBXGroup;
+			children = (
+				782DFE5D1DD9DB47004E651A /* NSDate+Extensions.m */,
+				782DFE5E1DD9DB47004E651A /* NSDate+Extensions.h */,
+			);
+			path = NSDate;
+			sourceTree = "<group>";
+		};
+		C3721D2DA0858AD0655566C9 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				782DFE551DD9D951004E651A /* TUCalendarViewController.h */,
+				782DFE561DD9D951004E651A /* TUCalendarViewController.m */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		C3721E0F0C2B64DD3115F709 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				C3721128D757CFFEA457842B /* TableViewCells */,
+				C3721F5BDB92E88AAFA6E82E /* SectionsViews */,
+				782DFE0F1DD9CC65004E651A /* TUCalendarDayView.h */,
+				782DFE101DD9CC65004E651A /* TUCalendarDayView.m */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		C3721F2BFD19BF73F61CFB3A /* NSDateFormatter */ = {
+			isa = PBXGroup;
+			children = (
+				782DFE491DD9D51E004E651A /* NSDateFormatter+TUDateFormatters.h */,
+				782DFE4A1DD9D51E004E651A /* NSDateFormatter+TUDateFormatters.m */,
+			);
+			path = NSDateFormatter;
+			sourceTree = "<group>";
+		};
+		C3721F5BDB92E88AAFA6E82E /* SectionsViews */ = {
+			isa = PBXGroup;
+			children = (
+				782DFE691DD9E515004E651A /* TUCalendarMonthSectionView.h */,
+				782DFE6A1DD9E515004E651A /* TUCalendarMonthSectionView.m */,
+			);
+			path = SectionsViews;
+			sourceTree = "<group>";
+		};
+		C3721FC4E0D948099413396D /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				C3721834FBF19D74E6361200 /* Fonts */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		782DFDF51DD9CA71004E651A /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				782DFE571DD9D951004E651A /* TUCalendarViewController.h in Headers */,
+				782DFE381DD9D247004E651A /* NSCalendar+ApplicationCalendars.h in Headers */,
+				782DFE631DD9E3BF004E651A /* TUDateFormatter.h in Headers */,
+				782DFE4B1DD9D51E004E651A /* NSDateFormatter+TUDateFormatters.h in Headers */,
+				782DFE111DD9CC65004E651A /* TUCalendarDayView.h in Headers */,
+				782DFE411DD9D33E004E651A /* TUViewStaticNibNameProtocol.h in Headers */,
+				782DFE6B1DD9E515004E651A /* TUCalendarMonthSectionView.h in Headers */,
+				782DFE681DD9E48E004E651A /* TUUtils.h in Headers */,
+				782DFE6F1DD9E561004E651A /* UIView+AutoReuseIdentifier.h in Headers */,
+				782DFE2D1DD9CE99004E651A /* UITableViewCell+DequeueFromTableView.h in Headers */,
+				782DFE441DD9D3D3004E651A /* UITableView+CellRegistration.h in Headers */,
+				782DFE1F1DD9CE12004E651A /* TUColor.h in Headers */,
+				782DFDFD1DD9CA72004E651A /* TUCalendar.h in Headers */,
+				782DFE601DD9DB47004E651A /* NSDate+Extensions.h in Headers */,
+				782DFE211DD9CE12004E651A /* TUFont.h in Headers */,
+				782DFE5B1DD9D971004E651A /* TUCalendarWeekTableViewCell.h in Headers */,
+				782DFE291DD9CE73004E651A /* NSCalendar+TimeUnits.h in Headers */,
+				782DFE3F1DD9D304004E651A /* TUReuseIdentifierProtocol.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		782DFDF71DD9CA71004E651A /* TUCalendar */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 782DFE001DD9CA72004E651A /* Build configuration list for PBXNativeTarget "TUCalendar" */;
+			buildPhases = (
+				782DFDF31DD9CA71004E651A /* Sources */,
+				782DFDF41DD9CA71004E651A /* Frameworks */,
+				782DFDF51DD9CA71004E651A /* Headers */,
+				782DFDF61DD9CA71004E651A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TUCalendar;
+			productName = TUCalendar;
+			productReference = 782DFDF81DD9CA71004E651A /* TUCalendar.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		782DFDEF1DD9CA71004E651A /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0810;
+				ORGANIZATIONNAME = ru.touchin;
+				TargetAttributes = {
+					782DFDF71DD9CA71004E651A = {
+						CreatedOnToolsVersion = 8.1;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 782DFDF21DD9CA71004E651A /* Build configuration list for PBXProject "TUCalendar" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 782DFDEE1DD9CA71004E651A;
+			productRefGroup = 782DFDF91DD9CA71004E651A /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				782DFDF71DD9CA71004E651A /* TUCalendar */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		782DFDF61DD9CA71004E651A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		782DFDF31DD9CA71004E651A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				782DFE5F1DD9DB47004E651A /* NSDate+Extensions.m in Sources */,
+				782DFE391DD9D247004E651A /* NSCalendar+ApplicationCalendars.m in Sources */,
+				782DFE5C1DD9D971004E651A /* TUCalendarWeekTableViewCell.m in Sources */,
+				782DFE221DD9CE12004E651A /* TUFont.m in Sources */,
+				782DFE121DD9CC65004E651A /* TUCalendarDayView.m in Sources */,
+				782DFE2A1DD9CE73004E651A /* NSCalendar+TimeUnits.m in Sources */,
+				782DFE6C1DD9E515004E651A /* TUCalendarMonthSectionView.m in Sources */,
+				782DFE201DD9CE12004E651A /* TUColor.m in Sources */,
+				782DFE581DD9D951004E651A /* TUCalendarViewController.m in Sources */,
+				782DFE2E1DD9CE99004E651A /* UITableViewCell+DequeueFromTableView.m in Sources */,
+				782DFE4C1DD9D51E004E651A /* NSDateFormatter+TUDateFormatters.m in Sources */,
+				782DFE701DD9E561004E651A /* UIView+AutoReuseIdentifier.m in Sources */,
+				782DFE641DD9E3BF004E651A /* TUDateFormatter.m in Sources */,
+				782DFE451DD9D3D3004E651A /* UITableView+CellRegistration.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		782DFDFE1DD9CA72004E651A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		782DFDFF1DD9CA72004E651A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		782DFE011DD9CA72004E651A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = TUCalendar/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = ru.touchin.TUCalendar;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		782DFE021DD9CA72004E651A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = TUCalendar/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = ru.touchin.TUCalendar;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		782DFDF21DD9CA71004E651A /* Build configuration list for PBXProject "TUCalendar" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				782DFDFE1DD9CA72004E651A /* Debug */,
+				782DFDFF1DD9CA72004E651A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		782DFE001DD9CA72004E651A /* Build configuration list for PBXNativeTarget "TUCalendar" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				782DFE011DD9CA72004E651A /* Debug */,
+				782DFE021DD9CA72004E651A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 782DFDEF1DD9CA71004E651A /* Project object */;
+}
