@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'TUCalendar'
-  s.version          = '1.0.0'
+  s.version          = '1.1.0'
   s.summary          = 'A short description of TUCalendar.'
 
   s.description      = <<-DESC
@@ -16,9 +16,9 @@ TODO: Add long description of the pod here.
 
   s.source_files = 'TUCalendar/TUCalendar/**/*'
 
-  s.resource_bundles = {
-    'TUCalendar' => ['TUCalendar/TUCalendar/Resources/**/*.ttf']
-  }
+  # s.resource_bundles = {
+  #   'TUCalendar' => ['TUCalendar/TUCalendar/Resources/**/*.ttf']
+  # }
 
   s.public_header_files = 'TUCalendar/TUCalendar/**/*.h'
   s.frameworks = 'UIKit'

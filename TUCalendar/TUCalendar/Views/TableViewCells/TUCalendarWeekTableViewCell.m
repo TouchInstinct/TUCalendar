@@ -90,7 +90,7 @@ static NSUInteger const kNumberOfDaysInWeek = 7;
     for (NSUInteger dayIndex = 0; dayIndex < daysCount; ++dayIndex) {
         NSDate *currentDayDate = [self.calendar dateByAddingUnit:NSCalendarUnitDay value:dayIndex toDate:firstDayInWeek options:0];
 
-        TUCalendarDayViewSettings *currentDateSettings = [[dataSource calendarDayViewSettingsForDate:currentDayDate] copy];
+        TUCalendarDayViewState *currentDateSettings = [[dataSource calendarDayViewSettingsForDate:currentDayDate] copy];
 
         NSInteger currentDateMonthNumber = [self.calendar component:NSCalendarUnitMonth fromDate:currentDayDate];
 
@@ -130,17 +130,17 @@ static NSUInteger const kNumberOfDaysInWeek = 7;
         }
 
         TUCalendarDayView *dayView = self.daysViews[dayIndex];
-        dayView.settings = currentDateSettings;
+        dayView.state = currentDateSettings;
         dayView.date = currentDayDate;
         dayView.delegate = self;
 
         [weekSettings addObject:currentDateSettings];
     }
 
-    TUCalendarDayViewSettings *firstDaySettings = weekSettings.firstObject;
+    TUCalendarDayViewState *firstDaySettings = weekSettings.firstObject;
     self.leftSelectedRangeView.hidden = !(firstDaySettings.selectionOptions & TUCalendarDayViewSelectionLeftFull);
 
-    TUCalendarDayViewSettings *lastDaySettings = weekSettings.lastObject;
+    TUCalendarDayViewState *lastDaySettings = weekSettings.lastObject;
     self.rightSelectedRangeView.hidden = !(lastDaySettings.selectionOptions & TUCalendarDayViewSelectionRightFull);
 }
 

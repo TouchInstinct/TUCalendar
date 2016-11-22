@@ -9,11 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "TUReuseIdentifierProtocol.h"
 
-@class TUCalendarDayViewSettings;
+@class TUCalendarDayViewState;
 
 @protocol TUCalendarWeekTableViewCellDataSource <NSObject>
 
-- (nonnull TUCalendarDayViewSettings *)calendarDayViewSettingsForDate:(nonnull NSDate *)date;
+- (nonnull TUCalendarDayViewState *)calendarDayViewSettingsForDate:(nonnull NSDate *)date;
 
 @end
 

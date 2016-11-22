@@ -8,20 +8,18 @@
 
 #import <UIColor_Hex/UIColor+Hex.h>
 #import "TUCalendarDayView.h"
-#import "TUFont.h"
-
-static UIImage *backgroundBlueImage = nil;
-static UIImage *backgroundBlueLightImage = nil;
+#import "UIImage+ImageDrawing.h"
+#import "UIImage+RoundedCorners.h"
 
 static CGFloat const kBackgroundImageViewHeight = 36.f;
 static CGFloat const kDayButtonTodayLabelVerticalSpace = - 6.f;
 static CGFloat const kTodayLabelHeight = 12.f;
 
 
-@implementation TUCalendarDayViewSettings
+@implementation TUCalendarDayViewState
 
 - (id)copyWithZone:(NSZone *)zone {
-    TUCalendarDayViewSettings *copyOfMe = [TUCalendarDayViewSettings new];
+    TUCalendarDayViewState *copyOfMe = [TUCalendarDayViewState new];
     copyOfMe.dateInMonth = self.dateInMonth;
     copyOfMe.selectionOptions = self.selectionOptions;
     copyOfMe.isInvisibleDay = self.isInvisibleDay;
@@ -29,6 +27,43 @@ static CGFloat const kTodayLabelHeight = 12.f;
     copyOfMe.isToday = self.isToday;
 
     return copyOfMe;
+}
+
+@end
+
+
+@implementation TUCalendarDayViewAppearance
+
+- (instancetype)init {
+    self = [super init];
+
+    if (self) {
+        self.highlightedBackgroundColor = [UIColor colorWithHex:0x0099FF];
+        self.selectedBackgroundColor = [UIColor colorWithHex:0xE5F4FF];
+
+        self.highlightedBackgroundImage = [TUCalendarDayViewAppearance backgroundImageWithColor:self.highlightedBackgroundColor];
+        self.selectedBackgroundImage = [TUCalendarDayViewAppearance backgroundImageWithColor:self.selectedBackgroundColor];
+        
+        self.titleFont = [UIFont systemFontOfSize:18.f];
+        self.titleColor = [UIColor colorWithHex:0x6D7F8D];
+        self.hightlightedTitleColor = [UIColor whiteColor];
+        self.disabledTitleColor = [UIColor colorWithHex:0xD1DAE1];
+        
+        self.todayTitleFont = [UIFont systemFontOfSize:10.f weight:UIFontWeightLight];
+        self.todayTitleColor = [UIColor colorWithHex:0x91A7B8];
+        self.todayText = NSLocalizedString(@"common_calendar_word_today", @"cегодня");
+
+        self.backgroundColor = [UIColor whiteColor];
+    }
+
+    return self;
+}
+
++ (UIImage *)backgroundImageWithColor:(UIColor *)color {
+    UIImage *backgroundImage = [UIImage imageWithColor:color
+                                               andSize:CGSizeMake(kBackgroundImageViewHeight, kBackgroundImageViewHeight)];
+
+    return [backgroundImage circleImage];
 }
 
 @end
@@ -48,17 +83,12 @@ static CGFloat const kTodayLabelHeight = 12.f;
 
 @implementation TUCalendarDayView
 
-+ (void)initialize {
-    backgroundBlueImage = [UIImage imageNamed:@"cal_blue"];
-    backgroundBlueLightImage = [UIImage imageNamed:@"cal_blue_light"];
-}
-
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     
     if (self) {
-        [self setupViews];
-        
+        [self createViews];
+
         [self.dayButton addTarget:self action:@selector(dayButtonTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
         [self.dayButton addTarget:self action:@selector(updateBackgroundState) forControlEvents:UIControlEventAllEvents];
     }
@@ -66,16 +96,12 @@ static CGFloat const kTodayLabelHeight = 12.f;
     return self;
 }
 
-- (void)setupViews {
-    UIColor *selectedBgColor = [UIColor colorWithHex:0xE5F4FF];
-    
+- (void)createViews {
     UIView *leftBackgroundView = [UIView new];
-    leftBackgroundView.backgroundColor = selectedBgColor;
     [self addSubview:leftBackgroundView];
     self.leftBackgroundView = leftBackgroundView;
     
     UIView *rightBackgroundView = [UIView new];
-    rightBackgroundView.backgroundColor = selectedBgColor;
     [self addSubview:rightBackgroundView];
     self.rightBackgroundView = rightBackgroundView;
     
@@ -84,18 +110,11 @@ static CGFloat const kTodayLabelHeight = 12.f;
     self.backgroundImageView = backgroundImageView;
     
     UIButton *dayButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    dayButton.titleLabel.font = [TUFont firaSansRegularOfSize:18];
-    [dayButton setTitleColor:[UIColor colorWithHex:0x6D7F8D] forState:UIControlStateNormal];
-    [dayButton setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
-    [dayButton setTitleColor:[UIColor colorWithHex:0xD1DAE1] forState:UIControlStateDisabled];
     [self addSubview:dayButton];
     self.dayButton = dayButton;
     
     UILabel *todayLabel = [UILabel new];
-    todayLabel.font = [TUFont firaSansLightOfSize:10];
-    todayLabel.textColor = [UIColor colorWithHex:0x91A7B8];
     todayLabel.textAlignment = NSTextAlignmentCenter;
-    todayLabel.text = NSLocalizedString(@"common_calendar_word_today",  @"cегодня");
     [self addSubview:todayLabel];
     self.todayLabel = todayLabel;
 }
@@ -110,13 +129,15 @@ static CGFloat const kTodayLabelHeight = 12.f;
     CGRect rightBackgroundViewFrame = leftBackgroundViewFrame;
     rightBackgroundViewFrame.origin.x += rightBackgroundViewFrame.size.width;
     self.rightBackgroundView.frame = rightBackgroundViewFrame;
+
+    CGSize size = self.frame.size;
     
     self.backgroundImageView.frame = CGRectMake(0.f, 0.f, kBackgroundImageViewHeight, kBackgroundImageViewHeight);
-    self.backgroundImageView.center = CGPointMake(self.frame.size.width/2.f, self.frame.size.height/2.f);
+    self.backgroundImageView.center = CGPointMake(size.width / 2.f, size.height / 2.f);
     
     self.dayButton.frame = self.bounds;
     
-    CGRect todayLabelFrame = CGRectMake(0.f,  CGRectGetMaxY(self.dayButton.frame) + kDayButtonTodayLabelVerticalSpace, self.frame.size.width, kTodayLabelHeight);
+    CGRect todayLabelFrame = CGRectMake(0.f, CGRectGetMaxY(self.dayButton.frame) + kDayButtonTodayLabelVerticalSpace, size.width, kTodayLabelHeight);
     self.todayLabel.frame = todayLabelFrame;
 }
 
@@ -124,39 +145,43 @@ static CGFloat const kTodayLabelHeight = 12.f;
     [self.delegate calendarDayView:self didSelectDate:self.date];
 }
 
-- (void)setSettings:(nonnull TUCalendarDayViewSettings *)settings {
+- (void)setState:(TUCalendarDayViewState *)state {
+    if (!self.dayViewAppearance) {
+        self.dayViewAppearance = [TUCalendarDayViewAppearance new];
+    }
+
     self.dayButton.selected = NO;
     self.dayButton.highlighted = NO;
     self.dayButton.enabled = NO;
 
-    if (settings.isInvisibleDay) {
+    if (state.isInvisibleDay) {
         [self.dayButton setTitle:@"" forState:UIControlStateDisabled];
-    } else if (settings.isOldDay) {
-        [self.dayButton setTitle:settings.dateInMonth forState:UIControlStateDisabled];
+    } else if (state.isOldDay) {
+        [self.dayButton setTitle:state.dateInMonth forState:UIControlStateDisabled];
     } else {
-        [self.dayButton setTitle:settings.dateInMonth forState:UIControlStateNormal];
-        [self.dayButton setTitle:settings.dateInMonth forState:UIControlStateSelected];
-        [self.dayButton setTitle:settings.dateInMonth forState:UIControlStateHighlighted];
+        [self.dayButton setTitle:state.dateInMonth forState:UIControlStateNormal];
+        [self.dayButton setTitle:state.dateInMonth forState:UIControlStateSelected];
+        [self.dayButton setTitle:state.dateInMonth forState:UIControlStateHighlighted];
 
         self.dayButton.enabled = YES;
     }
 
-    self.todayLabel.hidden = !settings.isToday || settings.isInvisibleDay;
+    self.todayLabel.hidden = !state.isToday || state.isInvisibleDay;
 
-    if (!settings.isOldDay) {
-        BOOL overlapsTodayLabel = settings.selectionOptions & TUCalendarDayViewSelectionDate
-                || settings.selectionOptions & TUCalendarDayViewSelectionDateStrong;
+    if (!state.isOldDay) {
+        BOOL overlapsTodayLabel = state.selectionOptions & TUCalendarDayViewSelectionDate
+                || state.selectionOptions & TUCalendarDayViewSelectionDateStrong;
 
         self.todayLabel.hidden = self.todayLabel.hidden || overlapsTodayLabel;
 
 
-        if (settings.selectionOptions == TUCalendarDayViewSelectionNone) {
+        if (state.selectionOptions == TUCalendarDayViewSelectionNone) {
             self.dayButton.selected = NO;
             self.dayButton.highlighted = NO;
-        } else if (!settings.isInvisibleDay) {
-            if (settings.selectionOptions & TUCalendarDayViewSelectionDateStrong) {
+        } else if (!state.isInvisibleDay) {
+            if (state.selectionOptions & TUCalendarDayViewSelectionDateStrong) {
                 self.dayButton.highlighted = YES;
-            } else if (settings.selectionOptions & TUCalendarDayViewSelectionDate) {
+            } else if (state.selectionOptions & TUCalendarDayViewSelectionDate) {
                 self.dayButton.selected = YES;
             }
         }
@@ -164,17 +189,35 @@ static CGFloat const kTodayLabelHeight = 12.f;
 
     [self updateBackgroundState];
 
-    self.leftBackgroundView.hidden = !(settings.selectionOptions & TUCalendarDayViewSelectionLeftFull);
-    self.rightBackgroundView.hidden = !(settings.selectionOptions & TUCalendarDayViewSelectionRightFull);
+    self.leftBackgroundView.hidden = !(state.selectionOptions & TUCalendarDayViewSelectionLeftFull);
+    self.rightBackgroundView.hidden = !(state.selectionOptions & TUCalendarDayViewSelectionRightFull);
+}
+
+- (void)setDayViewAppearance:(TUCalendarDayViewAppearance *)dayViewAppearance {
+    _dayViewAppearance = dayViewAppearance;
+
+    self.leftBackgroundView.backgroundColor = self.dayViewAppearance.selectedBackgroundColor;
+    self.rightBackgroundView.backgroundColor = self.dayViewAppearance.selectedBackgroundColor;
+
+    self.dayButton.titleLabel.font = self.dayViewAppearance.titleFont;
+    [self.dayButton setTitleColor:self.dayViewAppearance.titleColor forState:UIControlStateNormal];
+    [self.dayButton setTitleColor:self.dayViewAppearance.hightlightedTitleColor forState:UIControlStateHighlighted];
+    [self.dayButton setTitleColor:self.dayViewAppearance.disabledTitleColor forState:UIControlStateDisabled];
+
+    self.todayLabel.font = self.dayViewAppearance.todayTitleFont;
+    self.todayLabel.textColor = self.dayViewAppearance.todayTitleColor;
+    self.todayLabel.text = dayViewAppearance.todayText;
+
+    self.backgroundColor = self.dayViewAppearance.backgroundColor;
 }
 
 - (void)updateBackgroundState {
     UIControlState buttonState = self.dayButton.state;
 
     if (buttonState == UIControlStateHighlighted) {
-        self.backgroundImageView.image = backgroundBlueImage;
+        self.backgroundImageView.image = self.dayViewAppearance.highlightedBackgroundImage;
     } else if (buttonState == UIControlStateSelected) {
-        self.backgroundImageView.image = backgroundBlueLightImage;
+        self.backgroundImageView.image = self.dayViewAppearance.selectedBackgroundImage;
     } else {
         self.backgroundImageView.image = nil;
     }

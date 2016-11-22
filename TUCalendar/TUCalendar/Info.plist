@@ -20,12 +20,5 @@
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>NSPrincipalClass</key>
 	<string></string>
-	<key>UIAppFonts</key>
-	<array>
-		<string>FiraSans-Medium.ttf</string>
-		<string>FiraSans-Regular.ttf</string>
-		<string>FiraSans-Italic.ttf</string>
-		<string>FiraSans-Light.ttf</string>
-	</array>
 </dict>
 </plist>

@@ -20,7 +20,7 @@ typedef NS_OPTIONS(NSUInteger, TUCalendarDayViewSelectionOptions) {
 };
 
 
-@interface TUCalendarDayViewSettings : NSObject <NSCopying>
+@interface TUCalendarDayViewState : NSObject <NSCopying>
 
 @property (nonatomic, strong, nonnull) NSString *dateInMonth;
 
@@ -40,13 +40,38 @@ typedef NS_OPTIONS(NSUInteger, TUCalendarDayViewSelectionOptions) {
 
 @end
 
+@interface TUCalendarDayViewAppearance : NSObject
+
+@property (nonatomic, nonnull) UIColor *highlightedBackgroundColor;
+@property (nonatomic, nonnull) UIColor *selectedBackgroundColor;
+
+@property (nonatomic, nonnull) UIImage *highlightedBackgroundImage;
+@property (nonatomic, nonnull) UIImage *selectedBackgroundImage;
+
+@property (nonatomic, nonnull) UIFont *titleFont;
+@property (nonatomic, nonnull) UIColor *titleColor;
+@property (nonatomic, nonnull) UIColor *hightlightedTitleColor;
+@property (nonatomic, nonnull) UIColor *disabledTitleColor;
+
+@property (nonatomic, nonnull) UIFont *todayTitleFont;
+@property (nonatomic, nonnull) UIColor *todayTitleColor;
+@property (nonatomic, nonnull) NSString *todayText;
+
+@property (nonatomic, nonnull) UIColor *backgroundColor;
+
++ (nullable UIImage *)backgroundImageWithColor:(nonnull UIColor *)color;
+
+@end
+
 
 @interface TUCalendarDayView : UIView
 
-@property (nonatomic, strong, nonnull) NSDate *date;
+@property (nonatomic, nonnull) NSDate *date;
 
 @property (nonatomic, nullable, weak) id<TUCalendarDayViewDelegate> delegate;
 
-- (void)setSettings:(nonnull TUCalendarDayViewSettings *)settings;
+@property (nonatomic, nonnull) TUCalendarDayViewAppearance* dayViewAppearance UI_APPEARANCE_SELECTOR;
+
+- (void)setState:(nonnull TUCalendarDayViewState *)state;
 
 @end

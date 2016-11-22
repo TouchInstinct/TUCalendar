@@ -20,7 +20,7 @@ static const NSInteger kNumberOfDaysInWeek = 7;
 
 
 @interface TUCalendarViewController () <UITableViewDataSource, UITableViewDelegate, TUCalendarWeekTableViewCellDataSource, TUCalendarWeekTableViewCellDelegate> {
-    NSMutableDictionary<NSDate *, TUCalendarDayViewSettings *> *_calculatedSettings;
+    NSMutableDictionary<NSDate *, TUCalendarDayViewState *> *_calculatedSettings;
     NSDictionary<NSIndexPath *,  NSDate *> *_firstDayOfWeekForIndexPath;
     NSDictionary<NSDate *, NSNumber *> *_numberOfWeeksInMonth;
     NSDate *_today;
@@ -73,7 +73,7 @@ static const NSInteger kNumberOfDaysInWeek = 7;
         NSDate *firstDateInMonth = [lastDayInWeekForIndexPath firstDateForComponents:(NSCalendarUnitMonth) inCalendar:self.calendar];
 
         // calculate section as difference between first day of first month in calendar and selected date
-        NSInteger monthesBetween = [self.calendar components:(NSCalendarUnitMonth)
+        NSInteger monthesBetween = [self.calendar components:NSCalendarUnitMonth
                                                     fromDate:firstDateInMonth
                                                       toDate:firstSelectedDate
                                                      options:0].month;
@@ -150,8 +150,8 @@ static const NSInteger kNumberOfDaysInWeek = 7;
     }
 }
 
-- (TUCalendarDayViewSettings *)calculateSettingsForDate:(NSDate *)date {
-    TUCalendarDayViewSettings *settings = [TUCalendarDayViewSettings new];
+- (TUCalendarDayViewState *)calculateSettingsForDate:(NSDate *)date {
+    TUCalendarDayViewState *settings = [TUCalendarDayViewState new];
 
     settings.isOldDay = [date compare:_today] == NSOrderedAscending;
     settings.isToday = [_today isSameDayWithDate:date calendar:self.calendar];
@@ -196,7 +196,8 @@ static const NSInteger kNumberOfDaysInWeek = 7;
         NSInteger currentMonth = [self.calendar component:NSCalendarUnitMonth fromDate:_today];
         NSInteger sectionMonthIndex = (currentMonth + i - 1) % _numberOfMonthsInYear;
 
-        monthSectionView.monthName = self.calendar.standaloneMonthSymbols[(NSUInteger) sectionMonthIndex];
+        NSString *monthName = self.calendar.standaloneMonthSymbols[(NSUInteger) sectionMonthIndex];
+        monthSectionView.monthName = [monthName capitalizedString];
 
         mutablePreloadedMonthViews[i] = monthSectionView;
 
@@ -248,8 +249,8 @@ static const NSInteger kNumberOfDaysInWeek = 7;
     return [sectionMonth firstDateForComponents:NSCalendarUnitMonth | NSCalendarUnitWeekOfMonth inCalendar:self.calendar];
 }
 
-- (TUCalendarDayViewSettings *)calendarDayViewSettingsForDate:(NSDate *)date {
-    TUCalendarDayViewSettings *settings = _calculatedSettings[date];
+- (TUCalendarDayViewState *)calendarDayViewSettingsForDate:(NSDate *)date {
+    TUCalendarDayViewState *settings = _calculatedSettings[date];
 
     if (!settings) {
         settings = [self calculateSettingsForDate:date];
@@ -265,9 +266,13 @@ static const NSInteger kNumberOfDaysInWeek = 7;
     return _preloadedMonthSectionViews[(NSUInteger) section];
 }
 
+#pragma mark - Actions
+
 - (IBAction)cancelButtonClicked:(UIButton *)sender {
     [self.calendarDelegate calendarViewControllerCancelDateSelection:self];
 }
+
+#pragma mark - TUCalendarWeekTableViewCellDelegate
 
 - (void)calendarWeekTableViewCellSelectDate:(NSDate *)date {
     [self.calendarDelegate calendarViewController:self didSelectDate:date];

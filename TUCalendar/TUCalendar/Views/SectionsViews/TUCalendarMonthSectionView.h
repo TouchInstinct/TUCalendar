@@ -8,8 +8,26 @@
 
 #import <UIKit/UIKit.h>
 
+@interface TUCalendarMonthSectionViewAppearance : NSObject 
+
+@property (nonatomic, nonnull) UIFont *titleFont;
+@property (nonatomic, nonnull) UIColor *titleColor;
+
+@property (nonatomic, nonnull) UIFont *dayFont;
+
+@property (nonatomic, nonnull) UIColor *weekdayColor;
+@property (nonatomic, nonnull) UIColor *weekendColor;
+
+@property (nonatomic, nonnull) UIColor *dividerColor;
+
+@property (nonatomic, nonnull) UIColor *backgroundColor;
+
+@end
+
 @interface TUCalendarMonthSectionView : UIView
 
-- (void)setMonthName:(NSString *)monthName;
+@property (nonatomic, nonnull) TUCalendarMonthSectionViewAppearance *monthSectionAppearance UI_APPEARANCE_SELECTOR;
+
+- (void)setMonthName:(nonnull NSString *)monthName;
 
 @end
