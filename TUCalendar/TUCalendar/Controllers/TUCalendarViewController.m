@@ -204,8 +204,8 @@ static const CGFloat kSectionHeaderHeight = 56.f;
         NSInteger currentMonth = [self.calendar component:NSCalendarUnitMonth fromDate:_today];
         NSInteger sectionMonthIndex = (currentMonth + i - 1) % _numberOfMonthsInYear;
 
-        NSString *monthName = self.calendar.standaloneMonthSymbols[(NSUInteger) sectionMonthIndex];
-        monthSectionView.monthName = [monthName capitalizedString];
+        monthSectionView.calendar = self.calendar;
+        monthSectionView.monthIndex = (NSUInteger) sectionMonthIndex;
 
         mutablePreloadedMonthViews[i] = monthSectionView;
 

@@ -15,12 +15,12 @@
 
 @property (nonatomic, nonnull) UIFont *dayFont;
 
-@property (nonatomic, nonnull) UIColor *weekdayColor;
-@property (nonatomic, nonnull) UIColor *weekendColor;
-
 @property (nonatomic, nonnull) UIColor *dividerColor;
 
 @property (nonatomic, nonnull) UIColor *backgroundColor;
+
+@property (nonatomic, nullable) NSArray<NSString *> *weekdaysNames;
+@property (nonatomic, nonnull) NSArray<UIColor *> *weekdaysColors;
 
 @end
 
@@ -28,6 +28,8 @@
 
 @property (nonatomic, nonnull) TUCalendarMonthSectionViewAppearance *monthSectionAppearance UI_APPEARANCE_SELECTOR;
 
-- (void)setMonthName:(nonnull NSString *)monthName;
+@property (nonatomic, nonnull) NSCalendar *calendar;
+
+- (void)setMonthIndex:(NSUInteger)monthIndex;
 
 @end

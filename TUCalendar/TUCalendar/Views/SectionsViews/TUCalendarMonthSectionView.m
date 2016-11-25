@@ -9,7 +9,6 @@
 #import <UIColor_Hex/UIColor+Hex.h>
 #import "TUCalendarMonthSectionView.h"
 #import "TUDateFormatter.h"
-#import "NSCalendar+ApplicationCalendars.h"
 
 static NSUInteger const kNumberOfDaysInWeek = 7;
 static CGFloat const kMonthLabelTopToSuperviewSpace = 8.f;
@@ -30,9 +29,18 @@ static CGFloat const kDayLabelHeight = 14.f;
 
         self.dayFont = [UIFont systemFontOfSize:11.f];
 
-        self.weekdayColor = [UIColor colorWithHex:0x7B95AA];
-        self.weekendColor = [UIColor colorWithHex:0xC33D1A];
-
+        UIColor *weekdayColor = [UIColor colorWithHex:0x7B95AA];
+        UIColor *weekendColor = [UIColor colorWithHex:0xC33D1A];
+        
+        self.weekdaysColors = @[weekdayColor,
+                weekdayColor,
+                weekdayColor,
+                weekdayColor,
+                weekdayColor,
+                weekendColor,
+                weekendColor,
+        ];
+        
         self.dividerColor = [UIColor colorWithHex:0x7B95AA];
 
         self.backgroundColor = [UIColor whiteColor];
@@ -71,14 +79,11 @@ static CGFloat const kDayLabelHeight = 14.f;
     self.monthNameLabel = monthNameLabel;
 
     NSMutableArray<UILabel *> *daysLabels = [NSMutableArray arrayWithCapacity:kNumberOfDaysInWeek];
-
-    NSCalendar *calendar = [NSCalendar currentRUCalendar];
     
     for (NSUInteger i = 0; i < kNumberOfDaysInWeek; i++) {
         UILabel *dayLabel = [UILabel new];
         dayLabel.alpha = 0.5f;
         dayLabel.textAlignment = NSTextAlignmentCenter;
-        dayLabel.text = [[TUDateFormatter veryShortWeekdaySymbolForDayOfWeek:i inCalendar:calendar] uppercaseString];
         [self addSubview:dayLabel];
         [daysLabels addObject:dayLabel];
     }
@@ -109,8 +114,9 @@ static CGFloat const kDayLabelHeight = 14.f;
     }];
 }
 
-- (void)setMonthName:(NSString *)monthName {
-    self.monthNameLabel.text = monthName;
+- (void)setMonthIndex:(NSUInteger)monthIndex {
+    NSString *monthName = self.calendar.standaloneMonthSymbols[monthIndex];
+    self.monthNameLabel.text = [monthName capitalizedString];
 }
 
 - (void)setMonthSectionAppearance:(TUCalendarMonthSectionViewAppearance *)monthSectionAppearance {
@@ -119,19 +125,12 @@ static CGFloat const kDayLabelHeight = 14.f;
     self.monthNameLabel.font = self.monthSectionAppearance.titleFont;
     self.monthNameLabel.textColor = self.monthSectionAppearance.titleColor;
 
-    NSArray<UIColor *> *daysColors = @[
-            self.monthSectionAppearance.weekdayColor,
-            self.monthSectionAppearance.weekdayColor,
-            self.monthSectionAppearance.weekdayColor,
-            self.monthSectionAppearance.weekdayColor,
-            self.monthSectionAppearance.weekdayColor,
-            self.monthSectionAppearance.weekendColor,
-            self.monthSectionAppearance.weekendColor,
-    ];
-
     for (NSUInteger i = 0; i < kNumberOfDaysInWeek; ++i) {
-        self.daysLabels[i].font = self.monthSectionAppearance.dayFont;
-        self.daysLabels[i].textColor = daysColors[i];
+        UILabel *dayLabel = self.daysLabels[i];
+
+        dayLabel.font = self.monthSectionAppearance.dayFont;
+        dayLabel.text = self.monthSectionAppearance.weekdaysNames[i];
+        dayLabel.textColor = self.monthSectionAppearance.weekdaysColors[i];
     }
 
     self.divider.backgroundColor = self.monthSectionAppearance.dividerColor;
@@ -144,6 +143,16 @@ static CGFloat const kDayLabelHeight = 14.f;
 
     if (!self.monthSectionAppearance) {
         self.monthSectionAppearance = [TUCalendarMonthSectionViewAppearance new];
+    }
+
+    if (!self.monthSectionAppearance.weekdaysNames) {
+        NSMutableArray<NSString *> *weekdays = [NSMutableArray arrayWithCapacity:kNumberOfDaysInWeek];
+
+        for (NSUInteger i = 0; i < kNumberOfDaysInWeek; ++i) {
+            weekdays[i] = [[TUDateFormatter veryShortWeekdaySymbolForDayOfWeek:i inCalendar:self.calendar] uppercaseString];
+        }
+
+        self.monthSectionAppearance.weekdaysNames = [weekdays copy];
     }
 }
 
