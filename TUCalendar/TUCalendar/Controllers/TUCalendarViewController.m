@@ -18,10 +18,12 @@
 
 static const NSInteger kNumberOfDaysInWeek = 7;
 
+static const CGFloat kSectionHeaderHeight = 56.f;
+
 
 @interface TUCalendarViewController () <UITableViewDataSource, UITableViewDelegate, TUCalendarWeekTableViewCellDataSource, TUCalendarWeekTableViewCellDelegate> {
     NSMutableDictionary<NSDate *, TUCalendarDayViewState *> *_calculatedSettings;
-    NSDictionary<NSIndexPath *,  NSDate *> *_firstDayOfWeekForIndexPath;
+    NSDictionary<NSIndexPath *, NSDate *> *_firstDayOfWeekForIndexPath;
     NSDictionary<NSDate *, NSNumber *> *_numberOfWeeksInMonth;
     NSDate *_today;
 
@@ -38,8 +40,6 @@ static const NSInteger kNumberOfDaysInWeek = 7;
 
 @property (weak, nonatomic) IBOutlet UILabel *navbarTitleLabel;
 
-@property (nonatomic, strong) NSCalendar *calendar;
-
 @end
 
 @implementation TUCalendarViewController
@@ -48,12 +48,16 @@ static const NSInteger kNumberOfDaysInWeek = 7;
     [super viewDidLoad];
 
     if (self.isDepartureSelect) {
-        self.navbarTitleLabel.text = NSLocalizedString(@"common_calendar_departure_title", @"Дата вылета");
+        NSString *deparuteDateTitle = NSLocalizedString(@"common_calendar_departure_title", @"Дата вылета");
+
+        self.navbarTitleLabel.text = deparuteDateTitle ? deparuteDateTitle : @"Departure date";
     } else {
-        self.navbarTitleLabel.text = NSLocalizedString(@"common_calendar_arrival_title", @"Дата возвращения");
+        NSString *returnDateTitle = NSLocalizedString(@"common_calendar_arrival_title", @"Дата возвращения");
+
+        self.navbarTitleLabel.text = returnDateTitle ? returnDateTitle : @"Return date";
     }
 
-    [self initIVars];
+    [self initInstanceVariables];
 
     [self.tableView registerCellClass:[TUCalendarWeekTableViewCell class]];
 }
@@ -61,16 +65,20 @@ static const NSInteger kNumberOfDaysInWeek = 7;
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 
-    NSDate *firstSelectedDate = self.departureDate ? self.departureDate : self.returnDepartureDate;
+    NSDate *firstSelectedDate = self.departureDate ? self.departureDate : self.returnDate;
 
     if (firstSelectedDate) {
         NSDate *firstDateInCalendar = _firstDayOfWeekForIndexPath[[NSIndexPath indexPathForRow:0 inSection:0]];
 
         // firstDateInCalendar can be from previous month, so use last date of week (+7)
-        NSDate *lastDayInWeekForIndexPath = [self.calendar dateByAddingUnit:NSCalendarUnitDay value:kNumberOfDaysInWeek toDate:firstDateInCalendar options:0];
+        NSDate *lastDayInWeekForIndexPath = [self.calendar dateByAddingUnit:NSCalendarUnitDay
+                                                                      value:kNumberOfDaysInWeek
+                                                                     toDate:firstDateInCalendar
+                                                                    options:0];
 
         // and pick first day of month next
-        NSDate *firstDateInMonth = [lastDayInWeekForIndexPath firstDateForComponents:(NSCalendarUnitMonth) inCalendar:self.calendar];
+        NSDate *firstDateInMonth = [lastDayInWeekForIndexPath firstDateForComponents:NSCalendarUnitMonth 
+                                                                          inCalendar:self.calendar];
 
         // calculate section as difference between first day of first month in calendar and selected date
         NSInteger monthesBetween = [self.calendar components:NSCalendarUnitMonth
@@ -84,8 +92,8 @@ static const NSInteger kNumberOfDaysInWeek = 7;
     }
 }
 
-- (void)initIVars {
-    self.calendar = [NSCalendar currentRUCalendar];
+- (void)initInstanceVariables {
+    self.calendar = self.calendar ? self.calendar : [NSCalendar currentRUCalendar];
 
     _today = [NSDate dateWithoutTimeInCalendar:self.calendar];
 
@@ -159,7 +167,7 @@ static const NSInteger kNumberOfDaysInWeek = 7;
     settings.selectionOptions = TUCalendarDayViewSelectionNone;
 
     BOOL isDepartureDate = self.departureDate && [date isEqualToDate:self.departureDate];
-    BOOL isReturnDate = self.returnDepartureDate && [date isEqualToDate:self.returnDepartureDate];
+    BOOL isReturnDate = self.returnDate && [date isEqualToDate:self.returnDate];
 
     if (isDepartureDate || isReturnDate) {
         BOOL hightlightSelectedDate = (isDepartureDate && self.isDepartureSelect) || (isReturnDate && !self.isDepartureSelect);
@@ -171,13 +179,13 @@ static const NSInteger kNumberOfDaysInWeek = 7;
         }
 
         if (!(isDepartureDate && isReturnDate)) {
-            if (isDepartureDate && self.returnDepartureDate) {
+            if (isDepartureDate && self.returnDate) {
                 settings.selectionOptions |= TUCalendarDayViewSelectionRightFull;
             } else if (isReturnDate && self.departureDate) {
                 settings.selectionOptions |= TUCalendarDayViewSelectionLeftFull;
             }
         }
-    } else if ([date isDateBetweenStartDate:self.departureDate andEndDate:self.returnDepartureDate]) {
+    } else if ([date isDateBetweenStartDate:self.departureDate andEndDate:self.returnDate]) {
         settings.selectionOptions |= TUCalendarDayViewSelectionFull;
     }
 
@@ -236,7 +244,7 @@ static const NSInteger kNumberOfDaysInWeek = 7;
                   withDataSource:self
                      monthNumber:[self.calendar component:NSCalendarUnitMonth fromDate:monthDateForSection]
                    departureDate:self.departureDate
-                      returnDate:self.returnDepartureDate];
+                      returnDate:self.returnDate];
 
     weekCell.delegate = self;
 
@@ -261,6 +269,14 @@ static const NSInteger kNumberOfDaysInWeek = 7;
 }
 
 #pragma mark - UITableViewDelegate
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return [TUCalendarWeekTableViewCell viewHeight];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return kSectionHeaderHeight;
+}
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     return _preloadedMonthSectionViews[(NSUInteger) section];

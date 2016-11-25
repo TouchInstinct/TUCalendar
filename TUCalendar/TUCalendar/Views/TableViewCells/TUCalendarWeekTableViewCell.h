@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TUReuseIdentifierProtocol.h"
+#import "TUStaticViewHeightProtocol.h"
 
 @class TUCalendarDayViewState;
 
@@ -23,7 +23,7 @@
 
 @end
 
-@interface TUCalendarWeekTableViewCell : UITableViewCell <TUReuseIdentifierProtocol>
+@interface TUCalendarWeekTableViewCell : UITableViewCell <TUStaticViewHeightProtocol>
 
 @property (nonatomic, nullable, weak) id<TUCalendarWeekTableViewCellDelegate> delegate;
 

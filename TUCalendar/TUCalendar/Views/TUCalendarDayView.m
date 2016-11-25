@@ -51,7 +51,8 @@ static CGFloat const kTodayLabelHeight = 12.f;
         
         self.todayTitleFont = [UIFont systemFontOfSize:10.f weight:UIFontWeightLight];
         self.todayTitleColor = [UIColor colorWithHex:0x91A7B8];
-        self.todayText = NSLocalizedString(@"common_calendar_word_today", @"cегодня");
+        NSString *todayString = NSLocalizedString(@"common_calendar_word_today", @"cегодня");
+        self.todayText = todayString ? todayString : @"today";
 
         self.backgroundColor = [UIColor whiteColor];
     }
@@ -146,10 +147,6 @@ static CGFloat const kTodayLabelHeight = 12.f;
 }
 
 - (void)setState:(TUCalendarDayViewState *)state {
-    if (!self.dayViewAppearance) {
-        self.dayViewAppearance = [TUCalendarDayViewAppearance new];
-    }
-
     self.dayButton.selected = NO;
     self.dayButton.highlighted = NO;
     self.dayButton.enabled = NO;
@@ -209,6 +206,14 @@ static CGFloat const kTodayLabelHeight = 12.f;
     self.todayLabel.text = dayViewAppearance.todayText;
 
     self.backgroundColor = self.dayViewAppearance.backgroundColor;
+}
+
+- (void)didMoveToSuperview {
+    [super didMoveToSuperview];
+
+    if (!self.dayViewAppearance) {
+        self.dayViewAppearance = [TUCalendarDayViewAppearance new];
+    }
 }
 
 - (void)updateBackgroundState {

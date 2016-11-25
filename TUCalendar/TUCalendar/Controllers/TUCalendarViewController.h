@@ -20,11 +20,12 @@
 
 @interface TUCalendarViewController : UIViewController
 
-@property (nonatomic, assign) BOOL isDepartureSelect;
+@property (nonatomic) BOOL isDepartureSelect;
 
-@property (nonatomic, strong, nullable) NSDate *departureDate;
+@property (nonatomic, nullable) NSDate *departureDate;
+@property (nonatomic, nullable) NSDate *returnDate;
 
-@property (nonatomic, strong, nullable) NSDate *returnDepartureDate;
+@property (nonatomic, nonnull) NSCalendar *calendar;
 
 @property (nonatomic, nullable, weak) id<TUCalendarViewControllerDelegate> calendarDelegate;
 

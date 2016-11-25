@@ -11,7 +11,6 @@
 #import "TUCalendarDayView.h"
 #import "NSDate+Extensions.h"
 
-static NSString *const kCellReuseIdentifier = @"calendar_week_cell";
 static CGFloat const kCellHeight = 48.f;
 static CGFloat const kDaysViewsInset = 6.f;
 static NSUInteger const kNumberOfDaysInWeek = 7;
@@ -148,8 +147,10 @@ static NSUInteger const kNumberOfDaysInWeek = 7;
     [self.delegate calendarWeekTableViewCellSelectDate:date];
 }
 
-+ (NSString *)reuseIdentifier {
-    return kCellReuseIdentifier;
+#pragma mark - TUStaticViewHeightProtocol
+
++ (CGFloat)viewHeight {
+    return kCellHeight;
 }
 
 @end

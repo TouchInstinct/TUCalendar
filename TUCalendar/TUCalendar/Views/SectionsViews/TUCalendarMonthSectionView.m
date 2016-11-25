@@ -65,7 +65,6 @@ static CGFloat const kDayLabelHeight = 14.f;
 }
 
 - (void)setupViews {
-
     UILabel *monthNameLabel = [UILabel new];
     monthNameLabel.textAlignment = NSTextAlignmentCenter;
     [self addSubview:monthNameLabel];
@@ -111,10 +110,6 @@ static CGFloat const kDayLabelHeight = 14.f;
 }
 
 - (void)setMonthName:(NSString *)monthName {
-    if (!self.monthSectionAppearance) {
-        self.monthSectionAppearance = [TUCalendarMonthSectionViewAppearance new];
-    }
-
     self.monthNameLabel.text = monthName;
 }
 
@@ -144,5 +139,12 @@ static CGFloat const kDayLabelHeight = 14.f;
     self.backgroundColor = self.monthSectionAppearance.backgroundColor;
 }
 
+- (void)didMoveToSuperview {
+    [super didMoveToSuperview];
+
+    if (!self.monthSectionAppearance) {
+        self.monthSectionAppearance = [TUCalendarMonthSectionViewAppearance new];
+    }
+}
 
 @end
