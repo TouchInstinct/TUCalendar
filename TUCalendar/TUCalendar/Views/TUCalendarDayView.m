@@ -147,6 +147,10 @@ static CGFloat const kTodayLabelHeight = 12.f;
 }
 
 - (void)setState:(TUCalendarDayViewState *)state {
+    if (!self.dayViewAppearance) {
+        self.dayViewAppearance = [TUCalendarDayViewAppearance new];
+    }
+
     self.dayButton.selected = NO;
     self.dayButton.highlighted = NO;
     self.dayButton.enabled = NO;
@@ -206,14 +210,6 @@ static CGFloat const kTodayLabelHeight = 12.f;
     self.todayLabel.text = dayViewAppearance.todayText;
 
     self.backgroundColor = self.dayViewAppearance.backgroundColor;
-}
-
-- (void)didMoveToSuperview {
-    [super didMoveToSuperview];
-
-    if (!self.dayViewAppearance) {
-        self.dayViewAppearance = [TUCalendarDayViewAppearance new];
-    }
 }
 
 - (void)updateBackgroundState {
