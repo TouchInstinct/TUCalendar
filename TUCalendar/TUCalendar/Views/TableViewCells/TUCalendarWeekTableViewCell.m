@@ -55,6 +55,8 @@ static NSUInteger const kNumberOfDaysInWeek = 7;
     UIView *rightSelectedRangeView = [UIView new];
     rightSelectedRangeView.backgroundColor = selectedBgColor;
     self.rightSelectedRangeView = rightSelectedRangeView;
+
+    self.backgroundColor = [UIColor colorWithHex:0xED3C48];
 }
 
 - (void)layoutSubviews {
