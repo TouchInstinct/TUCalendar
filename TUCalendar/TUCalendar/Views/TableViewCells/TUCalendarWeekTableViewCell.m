@@ -51,12 +51,6 @@ static NSUInteger const kNumberOfDaysInWeek = 7;
 }
 
 - (void)setupViews {
-    if (!self.weekCellAppearance) {
-        self.weekCellAppearance = [TUCalendarWeekTableViewCellAppearance new];
-    }
-
-    self.backgroundColor = self.weekCellAppearance.backgroundColor;
-
     NSMutableArray<TUCalendarDayView *> *daysViews = [NSMutableArray arrayWithCapacity:kNumberOfDaysInWeek];
     
     for (NSUInteger i = 0; i < kNumberOfDaysInWeek; i++) {
@@ -98,6 +92,12 @@ static NSUInteger const kNumberOfDaysInWeek = 7;
                monthNumber:(NSInteger)monthNumber
              departureDate:(nullable NSDate *)departureDate
                 returnDate:(nullable NSDate *)returnDate {
+    if (!self.weekCellAppearance) {
+        self.weekCellAppearance = [TUCalendarWeekTableViewCellAppearance new];
+    }
+
+    self.backgroundColor = self.weekCellAppearance.backgroundColor;
+    
     NSUInteger daysCount = self.daysViews.count;
 
     NSMutableArray *weekSettings = [NSMutableArray arrayWithCapacity:daysCount];
