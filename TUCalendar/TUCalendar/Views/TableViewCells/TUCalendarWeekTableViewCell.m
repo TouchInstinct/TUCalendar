@@ -51,6 +51,8 @@ static NSUInteger const kNumberOfDaysInWeek = 7;
 }
 
 - (void)setupViews {
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
+
     NSMutableArray<TUCalendarDayView *> *daysViews = [NSMutableArray arrayWithCapacity:kNumberOfDaysInWeek];
     
     for (NSUInteger i = 0; i < kNumberOfDaysInWeek; i++) {

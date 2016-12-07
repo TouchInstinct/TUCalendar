@@ -188,8 +188,8 @@ static CGFloat const kTodayLabelHeight = 12.f;
 
     [self updateBackgroundState];
 
-    BOOL isLeftBackgroundViewShown = (state.selectionOptions & TUCalendarDayViewSelectionLeftFull);
-    BOOL isRightBackgroundViewShown = (state.selectionOptions & TUCalendarDayViewSelectionRightFull);
+    BOOL isLeftBackgroundViewShown = (state.selectionOptions & TUCalendarDayViewSelectionLeftFull) && !state.isInvisibleDay;
+    BOOL isRightBackgroundViewShown = (state.selectionOptions & TUCalendarDayViewSelectionRightFull) && !state.isInvisibleDay;
     BOOL isRangingText = isLeftBackgroundViewShown || isRightBackgroundViewShown;
 
     self.leftBackgroundView.hidden = !isLeftBackgroundViewShown;
