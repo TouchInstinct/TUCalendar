@@ -51,6 +51,8 @@ static NSUInteger const kNumberOfDaysInWeek = 7;
 }
 
 - (void)setupViews {
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
+
     NSMutableArray<TUCalendarDayView *> *daysViews = [NSMutableArray arrayWithCapacity:kNumberOfDaysInWeek];
     
     for (NSUInteger i = 0; i < kNumberOfDaysInWeek; i++) {
@@ -141,7 +143,8 @@ static NSUInteger const kNumberOfDaysInWeek = 7;
                 }
             } else if (returnDateOnThisWeek) {
                 if (monthNumber < returnDateMonth) {
-                    currentDateSettings.selectionOptions = TUCalendarDayViewSelectionFull;
+                    currentDateSettings.selectionOptions = currentDateSettings.isInvisibleDay ? TUCalendarDayViewSelectionNone
+                                                                                              : TUCalendarDayViewSelectionFull;
                 } else if ([currentDayDate compare:returnDate] == NSOrderedDescending
                         || monthNumber > returnDateMonth) {
                     currentDateSettings.selectionOptions = TUCalendarDayViewSelectionNone;
