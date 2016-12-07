@@ -169,7 +169,7 @@ static CGFloat const kTodayLabelHeight = 12.f;
 
     if (!state.isOldDay) {
         BOOL overlapsTodayLabel = state.selectionOptions & TUCalendarDayViewSelectionDate
-                || state.selectionOptions & TUCalendarDayViewSelectionDateStrong;
+        || state.selectionOptions & TUCalendarDayViewSelectionDateStrong;
 
         self.todayLabel.hidden = self.todayLabel.hidden || overlapsTodayLabel;
 
@@ -190,12 +190,20 @@ static CGFloat const kTodayLabelHeight = 12.f;
 
     BOOL isLeftBackgroundViewShown = (state.selectionOptions & TUCalendarDayViewSelectionLeftFull) && !state.isInvisibleDay;
     BOOL isRightBackgroundViewShown = (state.selectionOptions & TUCalendarDayViewSelectionRightFull) && !state.isInvisibleDay;
-    BOOL isRangingText = isLeftBackgroundViewShown || isRightBackgroundViewShown;
+    BOOL isRangingText = isLeftBackgroundViewShown || isRightBackgroundViewShown || [self isTextRangeState];
 
     self.leftBackgroundView.hidden = !isLeftBackgroundViewShown;
     self.rightBackgroundView.hidden = !isRightBackgroundViewShown;
 
-    if (isRangingText) {
+    [self configureTextRangeColorForRangeState:isRangingText];
+}
+
+- (BOOL)isTextRangeState {
+    return self.dayButton.state == UIControlStateHighlighted || self.dayButton.state == UIControlStateSelected;
+}
+
+- (void)configureTextRangeColorForRangeState:(BOOL)isRangeState {
+    if (isRangeState) {
         [self.dayButton setTitleColor:self.dayViewAppearance.rangeTitleColor forState:UIControlStateNormal];
     } else {
         [self.dayButton setTitleColor:self.dayViewAppearance.titleColor forState:UIControlStateNormal];
@@ -209,9 +217,9 @@ static CGFloat const kTodayLabelHeight = 12.f;
     self.rightBackgroundView.backgroundColor = self.dayViewAppearance.selectedBackgroundColor;
 
     self.dayButton.titleLabel.font = self.dayViewAppearance.titleFont;
-    [self.dayButton setTitleColor:self.dayViewAppearance.titleColor forState:UIControlStateNormal];
     [self.dayButton setTitleColor:self.dayViewAppearance.hightlightedTitleColor forState:UIControlStateHighlighted];
     [self.dayButton setTitleColor:self.dayViewAppearance.disabledTitleColor forState:UIControlStateDisabled];
+    [self configureTextRangeColorForRangeState:[self isTextRangeState]];
 
     self.todayLabel.font = self.dayViewAppearance.todayTitleFont;
     self.todayLabel.textColor = self.dayViewAppearance.todayTitleColor;
@@ -225,10 +233,13 @@ static CGFloat const kTodayLabelHeight = 12.f;
 
     if (buttonState == UIControlStateHighlighted) {
         self.backgroundImageView.image = self.dayViewAppearance.highlightedBackgroundImage;
+        [self configureTextRangeColorForRangeState:[self isTextRangeState]];
     } else if (buttonState == UIControlStateSelected) {
         self.backgroundImageView.image = self.dayViewAppearance.selectedBackgroundImage;
+        [self configureTextRangeColorForRangeState:[self isTextRangeState]];
     } else {
         self.backgroundImageView.image = nil;
+        [self configureTextRangeColorForRangeState:[self isTextRangeState]];
     }
 }
 
