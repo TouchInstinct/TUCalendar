@@ -15,6 +15,21 @@ static CGFloat const kCellHeight = 48.f;
 static CGFloat const kDaysViewsInset = 6.f;
 static NSUInteger const kNumberOfDaysInWeek = 7;
 
+@implementation TUCalendarWeekTableViewCellAppearance
+
+- (instancetype)init {
+    self = [super init];
+
+    if (self) {
+        self.backgroundColor = [UIColor whiteColor];
+    }
+    
+    return self;
+}
+
+
+@end
+
 @interface TUCalendarWeekTableViewCell () <TUCalendarDayViewDelegate>
 
 @property (strong, nonatomic) UIView *leftSelectedRangeView;
@@ -36,6 +51,12 @@ static NSUInteger const kNumberOfDaysInWeek = 7;
 }
 
 - (void)setupViews {
+    if (!self.weekCellAppearance) {
+        self.weekCellAppearance = [TUCalendarWeekTableViewCellAppearance new];
+    }
+
+    self.backgroundColor = self.weekCellAppearance.backgroundColor;
+
     NSMutableArray<TUCalendarDayView *> *daysViews = [NSMutableArray arrayWithCapacity:kNumberOfDaysInWeek];
     
     for (NSUInteger i = 0; i < kNumberOfDaysInWeek; i++) {
