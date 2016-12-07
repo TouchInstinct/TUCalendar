@@ -217,10 +217,13 @@ static CGFloat const kTodayLabelHeight = 12.f;
 
     if (buttonState == UIControlStateHighlighted) {
         self.backgroundImageView.image = self.dayViewAppearance.highlightedBackgroundImage;
+        [self.dayButton setTitleColor:self.dayViewAppearance.hightlightedTitleColor forState:UIControlStateNormal];
     } else if (buttonState == UIControlStateSelected) {
         self.backgroundImageView.image = self.dayViewAppearance.selectedBackgroundImage;
+        [self.dayButton setTitleColor:self.dayViewAppearance.hightlightedTitleColor forState:UIControlStateNormal];
     } else {
         self.backgroundImageView.image = nil;
+        [self.dayButton setTitleColor:self.dayViewAppearance.titleColor forState:UIControlStateNormal];
     }
 }
 
