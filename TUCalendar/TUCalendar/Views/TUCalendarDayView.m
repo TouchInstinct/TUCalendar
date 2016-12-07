@@ -38,16 +38,14 @@ static CGFloat const kTodayLabelHeight = 12.f;
     self = [super init];
 
     if (self) {
-        self.highlightedBackgroundColor = [UIColor colorWithHex:0x0099FF];
         self.selectedBackgroundColor = [UIColor colorWithHex:0xE5F4FF];
-
-        self.highlightedBackgroundImage = [TUCalendarDayViewAppearance backgroundImageWithColor:self.highlightedBackgroundColor];
         self.selectedBackgroundImage = [TUCalendarDayViewAppearance backgroundImageWithColor:self.selectedBackgroundColor];
         
         self.titleFont = [UIFont systemFontOfSize:18.f];
         self.titleColor = [UIColor colorWithHex:0x6D7F8D];
         self.hightlightedTitleColor = [UIColor whiteColor];
         self.disabledTitleColor = [UIColor colorWithHex:0xD1DAE1];
+        self.rangeTitleColor = self.titleColor;
         
         self.todayTitleFont = [UIFont systemFontOfSize:10.f weight:UIFontWeightLight];
         self.todayTitleColor = [UIColor colorWithHex:0x91A7B8];
@@ -190,8 +188,18 @@ static CGFloat const kTodayLabelHeight = 12.f;
 
     [self updateBackgroundState];
 
-    self.leftBackgroundView.hidden = !(state.selectionOptions & TUCalendarDayViewSelectionLeftFull);
-    self.rightBackgroundView.hidden = !(state.selectionOptions & TUCalendarDayViewSelectionRightFull);
+    BOOL isLeftBackgroundViewShown = (state.selectionOptions & TUCalendarDayViewSelectionLeftFull);
+    BOOL isRightBackgroundViewShown = (state.selectionOptions & TUCalendarDayViewSelectionRightFull);
+    BOOL isRangingText = isLeftBackgroundViewShown || isRightBackgroundViewShown;
+
+    self.leftBackgroundView.hidden = !isLeftBackgroundViewShown;
+    self.rightBackgroundView.hidden = !isRightBackgroundViewShown;
+
+    if (isRangingText) {
+        [self.dayButton setTitleColor:self.dayViewAppearance.rangeTitleColor forState:UIControlStateNormal];
+    } else {
+        [self.dayButton setTitleColor:self.dayViewAppearance.titleColor forState:UIControlStateNormal];
+    }
 }
 
 - (void)setDayViewAppearance:(TUCalendarDayViewAppearance *)dayViewAppearance {
@@ -217,13 +225,10 @@ static CGFloat const kTodayLabelHeight = 12.f;
 
     if (buttonState == UIControlStateHighlighted) {
         self.backgroundImageView.image = self.dayViewAppearance.highlightedBackgroundImage;
-        [self.dayButton setTitleColor:self.dayViewAppearance.hightlightedTitleColor forState:UIControlStateNormal];
     } else if (buttonState == UIControlStateSelected) {
         self.backgroundImageView.image = self.dayViewAppearance.selectedBackgroundImage;
-        [self.dayButton setTitleColor:self.dayViewAppearance.hightlightedTitleColor forState:UIControlStateNormal];
     } else {
         self.backgroundImageView.image = nil;
-        [self.dayButton setTitleColor:self.dayViewAppearance.titleColor forState:UIControlStateNormal];
     }
 }
 
