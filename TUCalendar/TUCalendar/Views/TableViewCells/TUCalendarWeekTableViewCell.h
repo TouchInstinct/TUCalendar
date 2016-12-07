@@ -23,6 +23,12 @@
 
 @end
 
+@interface TUCalendarWeekTableViewCellAppearance : NSObject
+
+@property (nonatomic, nonnull) UIColor *backgroundColor;
+
+@end
+
 @interface TUCalendarWeekTableViewCell : UITableViewCell <TUStaticViewHeightProtocol>
 
 @property (nonatomic, nullable, weak) id<TUCalendarWeekTableViewCellDelegate> delegate;
@@ -34,5 +40,7 @@
                 returnDate:(nullable NSDate *)returnDate;
 
 @property (nonatomic, nonnull, strong) NSCalendar *calendar;
+
+@property (nonatomic, nonnull) TUCalendarWeekTableViewCellAppearance* weekCellAppearance UI_APPEARANCE_SELECTOR;
 
 @end

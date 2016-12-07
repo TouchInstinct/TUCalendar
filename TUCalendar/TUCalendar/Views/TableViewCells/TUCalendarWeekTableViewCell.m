@@ -149,6 +149,12 @@ static NSUInteger const kNumberOfDaysInWeek = 7;
     [self.delegate calendarWeekTableViewCellSelectDate:date];
 }
 
+- (void)setWeekCellAppearance:(TUCalendarWeekTableViewCellAppearance *)weekCellAppearance {
+    _weekCellAppearance = weekCellAppearance;
+
+    self.backgroundColor = self.weekCellAppearance.backgroundColor;
+}
+
 #pragma mark - TUStaticViewHeightProtocol
 
 + (CGFloat)viewHeight {
