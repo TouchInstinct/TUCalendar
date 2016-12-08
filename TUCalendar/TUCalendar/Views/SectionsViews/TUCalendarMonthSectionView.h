@@ -23,6 +23,13 @@
 @property (nonatomic, nonnull) NSArray<UIColor *> *weekdaysColors;
 
 @property (nonatomic) BOOL showYear;
+@property (nonatomic) BOOL showWeekDays;
+
+@property (nonatomic) UIEdgeInsets alignmentTitleLabelRectInsets;
+@property (nonatomic) NSTextAlignment titleLabelTextAlignment;
+@property (nonatomic) BOOL showDevider;
+
+@property (nonatomic) CGFloat sectionHeaderHeight;
 
 @end
 

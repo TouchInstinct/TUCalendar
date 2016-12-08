@@ -18,8 +18,6 @@
 
 static const NSInteger kNumberOfDaysInWeek = 7;
 
-static const CGFloat kSectionHeaderHeight = 56.f;
-
 
 @interface TUCalendarViewController () <UITableViewDataSource, UITableViewDelegate, TUCalendarWeekTableViewCellDataSource, TUCalendarWeekTableViewCellDelegate> {
     NSMutableDictionary<NSDate *, TUCalendarDayViewState *> *_calculatedSettings;
@@ -276,7 +274,7 @@ static const CGFloat kSectionHeaderHeight = 56.f;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return kSectionHeaderHeight;
+    return [TUCalendarMonthSectionView appearance].monthSectionAppearance.sectionHeaderHeight;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {

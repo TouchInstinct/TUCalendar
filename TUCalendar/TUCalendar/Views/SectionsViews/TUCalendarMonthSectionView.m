@@ -16,6 +16,7 @@ static CGFloat const kMonthLabelHeight = 18.f;
 static CGFloat const kDaysToMonthVerticalSpace = 10.f;
 static CGFloat const kDaysLabelsLeftRightInset = 6.f;
 static CGFloat const kDayLabelHeight = 14.f;
+static CGFloat const kSectionHeaderHeight = 56.f;
 
 
 @implementation TUCalendarMonthSectionViewAppearance
@@ -44,6 +45,13 @@ static CGFloat const kDayLabelHeight = 14.f;
         self.dividerColor = [UIColor colorWithHex:0x7B95AA];
         self.backgroundColor = [UIColor whiteColor];
         self.showYear = NO;
+        self.showWeekDays = YES;
+
+        self.alignmentTitleLabelRectInsets = UIEdgeInsetsZero;
+        self.titleLabelTextAlignment = NSTextAlignmentCenter;
+        self.showDevider = YES;
+
+        self.sectionHeaderHeight = kSectionHeaderHeight;
     }
 
     return self;
@@ -77,7 +85,7 @@ static CGFloat const kDayLabelHeight = 14.f;
 
 - (void)setupViews {
     UILabel *sectionTitleLabel = [UILabel new];
-    sectionTitleLabel.textAlignment = NSTextAlignmentCenter;
+    sectionTitleLabel.textAlignment = _monthSectionAppearance.titleLabelTextAlignment;
     [self addSubview:sectionTitleLabel];
     self.sectionTitleLabel = sectionTitleLabel;
 
@@ -104,17 +112,29 @@ static CGFloat const kDayLabelHeight = 14.f;
     
     CGFloat width = self.frame.size.width;
     CGFloat height = self.frame.size.height;
-    
-    self.sectionTitleLabel.frame = CGRectMake(0.f, kMonthLabelTopToSuperviewSpace, width, kMonthLabelHeight);
-    
-    CGFloat dividerHeight = 0.5f;
-    self.divider.frame = CGRectMake(0.f, height - dividerHeight, width, dividerHeight);
-    
-    CGFloat daysY = CGRectGetMaxY(self.sectionTitleLabel.frame) + kDaysToMonthVerticalSpace;
-    CGFloat dayViewWidth = (width - 2 * kDaysLabelsLeftRightInset) / kNumberOfDaysInWeek;
-    [self.daysLabels enumerateObjectsUsingBlock:^(UILabel * _Nonnull dayLabel, NSUInteger idx, BOOL * _Nonnull stop) {
-        dayLabel.frame = CGRectMake(kDaysLabelsLeftRightInset + dayViewWidth * idx, daysY, dayViewWidth, kDayLabelHeight);
-    }];
+
+    CGRect sectionTitleLabelFrame;
+
+    if (!_monthSectionAppearance.showWeekDays) {
+        UIEdgeInsets alignmentTitleLabelRectInsets = _monthSectionAppearance.alignmentTitleLabelRectInsets;
+        sectionTitleLabelFrame = CGRectMake(alignmentTitleLabelRectInsets.left,
+                                            alignmentTitleLabelRectInsets.top,
+                                            width - alignmentTitleLabelRectInsets.left - alignmentTitleLabelRectInsets.right,
+                                            height - alignmentTitleLabelRectInsets.top - alignmentTitleLabelRectInsets.bottom);
+    } else {
+        sectionTitleLabelFrame = CGRectMake(0.f, kMonthLabelTopToSuperviewSpace, width, kMonthLabelHeight);
+
+        CGFloat dividerHeight = 0.5f;
+        self.divider.frame = CGRectMake(0.f, height - dividerHeight, width, dividerHeight);
+
+        CGFloat daysY = CGRectGetMaxY(self.sectionTitleLabel.frame) + kDaysToMonthVerticalSpace;
+        CGFloat dayViewWidth = (width - 2 * kDaysLabelsLeftRightInset) / kNumberOfDaysInWeek;
+        [self.daysLabels enumerateObjectsUsingBlock:^(UILabel * _Nonnull dayLabel, NSUInteger idx, BOOL * _Nonnull stop) {
+            dayLabel.frame = CGRectMake(kDaysLabelsLeftRightInset + dayViewWidth * idx, daysY, dayViewWidth, kDayLabelHeight);
+        }];
+    }
+
+    self.sectionTitleLabel.frame = sectionTitleLabelFrame;
 }
 
 - (void)setDateWithMonthIndex:(NSUInteger)monthIndex andYear:(NSUInteger)year; {
@@ -152,8 +172,16 @@ static CGFloat const kDayLabelHeight = 14.f;
     self.divider.backgroundColor = self.monthSectionAppearance.dividerColor;
 
     self.backgroundColor = self.monthSectionAppearance.backgroundColor;
+    self.sectionTitleLabel.textAlignment = _monthSectionAppearance.titleLabelTextAlignment;
+
+    for (UILabel *weekDay in self.daysLabels) {
+        weekDay.hidden = !_monthSectionAppearance.showWeekDays;
+    }
+
+    self.divider.hidden = !_monthSectionAppearance.showDevider;
 
     [self setSectionTitle];
+    [self layoutSubviews];
 }
 
 - (void)didMoveToSuperview {
