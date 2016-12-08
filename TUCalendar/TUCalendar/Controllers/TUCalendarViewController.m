@@ -202,10 +202,11 @@ static const CGFloat kSectionHeaderHeight = 56.f;
 
         TUCalendarMonthSectionView *monthSectionView = [TUCalendarMonthSectionView new];
         NSInteger currentMonth = [self.calendar component:NSCalendarUnitMonth fromDate:_today];
+        NSInteger currentYear = [self.calendar component:NSCalendarUnitYear fromDate:_today];
         NSInteger sectionMonthIndex = (currentMonth + i - 1) % _numberOfMonthsInYear;
 
         monthSectionView.calendar = self.calendar;
-        monthSectionView.monthIndex = (NSUInteger) sectionMonthIndex;
+        [monthSectionView setDateWithMonthIndex:sectionMonthIndex andYear: currentYear];
 
         mutablePreloadedMonthViews[i] = monthSectionView;
 

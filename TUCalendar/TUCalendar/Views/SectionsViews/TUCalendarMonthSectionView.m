@@ -42,8 +42,8 @@ static CGFloat const kDayLabelHeight = 14.f;
         ];
         
         self.dividerColor = [UIColor colorWithHex:0x7B95AA];
-
         self.backgroundColor = [UIColor whiteColor];
+        self.showYear = NO;
     }
 
     return self;
@@ -54,7 +54,7 @@ static CGFloat const kDayLabelHeight = 14.f;
 
 @interface TUCalendarMonthSectionView ()
 
-@property (strong, nonatomic) UILabel *monthNameLabel;
+@property (strong, nonatomic) UILabel *sectionTitleLabel;
 @property (strong, nonatomic) NSArray<UILabel *> *daysLabels;
 @property (strong, nonatomic) UIView *divider;
 
@@ -73,10 +73,10 @@ static CGFloat const kDayLabelHeight = 14.f;
 }
 
 - (void)setupViews {
-    UILabel *monthNameLabel = [UILabel new];
-    monthNameLabel.textAlignment = NSTextAlignmentCenter;
-    [self addSubview:monthNameLabel];
-    self.monthNameLabel = monthNameLabel;
+    UILabel *sectionTitleLabel = [UILabel new];
+    sectionTitleLabel.textAlignment = NSTextAlignmentCenter;
+    [self addSubview:sectionTitleLabel];
+    self.sectionTitleLabel = sectionTitleLabel;
 
     NSMutableArray<UILabel *> *daysLabels = [NSMutableArray arrayWithCapacity:kNumberOfDaysInWeek];
     
@@ -102,28 +102,35 @@ static CGFloat const kDayLabelHeight = 14.f;
     CGFloat width = self.frame.size.width;
     CGFloat height = self.frame.size.height;
     
-    self.monthNameLabel.frame = CGRectMake(0.f, kMonthLabelTopToSuperviewSpace, width, kMonthLabelHeight);
+    self.sectionTitleLabel.frame = CGRectMake(0.f, kMonthLabelTopToSuperviewSpace, width, kMonthLabelHeight);
     
     CGFloat dividerHeight = 0.5f;
     self.divider.frame = CGRectMake(0.f, height - dividerHeight, width, dividerHeight);
     
-    CGFloat daysY = CGRectGetMaxY(self.monthNameLabel.frame) + kDaysToMonthVerticalSpace;
+    CGFloat daysY = CGRectGetMaxY(self.sectionTitleLabel.frame) + kDaysToMonthVerticalSpace;
     CGFloat dayViewWidth = (width - 2 * kDaysLabelsLeftRightInset) / kNumberOfDaysInWeek;
     [self.daysLabels enumerateObjectsUsingBlock:^(UILabel * _Nonnull dayLabel, NSUInteger idx, BOOL * _Nonnull stop) {
         dayLabel.frame = CGRectMake(kDaysLabelsLeftRightInset + dayViewWidth * idx, daysY, dayViewWidth, kDayLabelHeight);
     }];
 }
 
-- (void)setMonthIndex:(NSUInteger)monthIndex {
+- (void)setDateWithMonthIndex:(NSUInteger)monthIndex andYear:(NSUInteger)year; {
     NSString *monthName = self.calendar.standaloneMonthSymbols[monthIndex];
-    self.monthNameLabel.text = [monthName capitalizedString];
+
+    NSString *sectionTitle = monthName;
+
+    if (_monthSectionAppearance.showYear) {
+        [sectionTitle stringByAppendingString:[NSString stringWithFormat:@" %lu", (unsigned long)year]];
+    }
+
+    self.sectionTitleLabel.text = [sectionTitle capitalizedString];
 }
 
 - (void)setMonthSectionAppearance:(TUCalendarMonthSectionViewAppearance *)monthSectionAppearance {
     _monthSectionAppearance = monthSectionAppearance;
 
-    self.monthNameLabel.font = self.monthSectionAppearance.titleFont;
-    self.monthNameLabel.textColor = self.monthSectionAppearance.titleColor;
+    self.sectionTitleLabel.font = self.monthSectionAppearance.titleFont;
+    self.sectionTitleLabel.textColor = self.monthSectionAppearance.titleColor;
 
     for (NSUInteger i = 0; i < kNumberOfDaysInWeek; ++i) {
         UILabel *dayLabel = self.daysLabels[i];

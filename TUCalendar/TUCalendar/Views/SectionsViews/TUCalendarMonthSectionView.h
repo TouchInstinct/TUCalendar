@@ -22,6 +22,8 @@
 @property (nonatomic, nullable) NSArray<NSString *> *weekdaysNames;
 @property (nonatomic, nonnull) NSArray<UIColor *> *weekdaysColors;
 
+@property (nonatomic) BOOL showYear;
+
 @end
 
 @interface TUCalendarMonthSectionView : UIView
@@ -30,6 +32,6 @@
 
 @property (nonatomic, nonnull) NSCalendar *calendar;
 
-- (void)setMonthIndex:(NSUInteger)monthIndex;
+- (void)setDateWithMonthIndex:(NSUInteger)monthIndex andYear:(NSUInteger)year;
 
 @end
