@@ -56,6 +56,7 @@ typedef NS_OPTIONS(NSUInteger, TUCalendarDayViewSelectionOptions) {
 @property (nonatomic, nonnull) UIFont *todayTitleFont;
 @property (nonatomic, nonnull) UIColor *todayTitleColor;
 @property (nonatomic, nonnull) NSString *todayText;
+@property (nonatomic) BOOL isTodaySelected;
 
 @property (nonatomic, nonnull) UIColor *backgroundColor;
 
