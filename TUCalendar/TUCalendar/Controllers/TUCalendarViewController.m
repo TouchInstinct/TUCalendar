@@ -200,11 +200,11 @@ static const NSInteger kNumberOfDaysInWeek = 7;
 
         TUCalendarMonthSectionView *monthSectionView = [TUCalendarMonthSectionView new];
         NSInteger currentMonth = [self.calendar component:NSCalendarUnitMonth fromDate:_today];
-        NSInteger currentYear = [self.calendar component:NSCalendarUnitYear fromDate:_today];
+        NSInteger nextMonthYear = [self.calendar component:NSCalendarUnitYear fromDate:nextMonthDate];
         NSInteger sectionMonthIndex = (currentMonth + i - 1) % _numberOfMonthsInYear;
 
         monthSectionView.calendar = self.calendar;
-        [monthSectionView setDateWithMonthIndex:sectionMonthIndex andYear: currentYear];
+        [monthSectionView setDateWithMonthIndex:sectionMonthIndex andYear: nextMonthYear];
 
         mutablePreloadedMonthViews[i] = monthSectionView;
 

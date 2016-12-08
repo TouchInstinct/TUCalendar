@@ -140,7 +140,6 @@ static CGFloat const kSectionHeaderHeight = 56.f;
 - (void)setDateWithMonthIndex:(NSUInteger)monthIndex andYear:(NSUInteger)year; {
     self.monthIndex = monthIndex;
     self.year = year;
-
 }
 
 - (void)setSectionTitle {
