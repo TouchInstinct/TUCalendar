@@ -58,6 +58,9 @@ static CGFloat const kDayLabelHeight = 14.f;
 @property (strong, nonatomic) NSArray<UILabel *> *daysLabels;
 @property (strong, nonatomic) UIView *divider;
 
+@property (nonatomic) NSUInteger monthIndex;
+@property (nonatomic) NSUInteger year;
+
 @end
 
 @implementation TUCalendarMonthSectionView
@@ -115,12 +118,18 @@ static CGFloat const kDayLabelHeight = 14.f;
 }
 
 - (void)setDateWithMonthIndex:(NSUInteger)monthIndex andYear:(NSUInteger)year; {
-    NSString *monthName = self.calendar.standaloneMonthSymbols[monthIndex];
+    self.monthIndex = monthIndex;
+    self.year = year;
+
+}
+
+- (void)setSectionTitle {
+    NSString *monthName = self.calendar.standaloneMonthSymbols[self.monthIndex];
 
     NSString *sectionTitle = monthName;
 
     if (_monthSectionAppearance.showYear) {
-        [sectionTitle stringByAppendingString:[NSString stringWithFormat:@" %lu", (unsigned long)year]];
+        sectionTitle = [sectionTitle stringByAppendingString:[NSString stringWithFormat:@" %lu", (unsigned long)self.year]];
     }
 
     self.sectionTitleLabel.text = [sectionTitle capitalizedString];
@@ -143,6 +152,8 @@ static CGFloat const kDayLabelHeight = 14.f;
     self.divider.backgroundColor = self.monthSectionAppearance.dividerColor;
 
     self.backgroundColor = self.monthSectionAppearance.backgroundColor;
+
+    [self setSectionTitle];
 }
 
 - (void)didMoveToSuperview {
