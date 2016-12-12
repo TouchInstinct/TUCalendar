@@ -30,11 +30,11 @@ static CGFloat const kTodayLabelHeight = 12.f;
 }
 
 - (BOOL)isLeftBackgroundViewShown {
-    return (self.selectionOptions & TUCalendarDayViewSelectionLeftFull);
+    return self.selectionOptions & TUCalendarDayViewSelectionLeftFull;
 }
 
 - (BOOL)isRightBackgroundViewShown {
-    return (self.selectionOptions & TUCalendarDayViewSelectionRightFull);
+    return self.selectionOptions & TUCalendarDayViewSelectionRightFull;
 }
 
 @end
@@ -47,6 +47,8 @@ static CGFloat const kTodayLabelHeight = 12.f;
 
     if (self) {
         self.selectedBackgroundColor = [UIColor colorWithHex:0xE5F4FF];
+
+        self.highlightedBackgroundImage = [TUCalendarDayViewAppearance backgroundImageWithColor:[UIColor colorWithHex:0x0099FF]];
         self.selectedBackgroundImage = [TUCalendarDayViewAppearance backgroundImageWithColor:self.selectedBackgroundColor];
         
         self.titleFont = [UIFont systemFontOfSize:18.f];
@@ -217,7 +219,7 @@ static CGFloat const kTodayLabelHeight = 12.f;
 }
 
 - (BOOL)shouldShowTodaySelectedForState:(TUCalendarDayViewState *)state {
-    return state.isToday && !state.isInvisibleDay && _dayViewAppearance.isTodaySelected;
+    return state.isToday && !state.isInvisibleDay && self.dayViewAppearance.isTodaySelected;
 }
 
 - (void)configureTextRangeColorForRangeState:(BOOL)isRangeState {

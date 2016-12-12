@@ -204,7 +204,7 @@ static const NSInteger kNumberOfDaysInWeek = 7;
         NSInteger sectionMonthIndex = (currentMonth + i - 1) % _numberOfMonthsInYear;
 
         monthSectionView.calendar = self.calendar;
-        [monthSectionView setDateWithMonthIndex:sectionMonthIndex andYear: nextMonthYear];
+        [monthSectionView setMonthIndex:sectionMonthIndex andYear: nextMonthYear];
 
         mutablePreloadedMonthViews[i] = monthSectionView;
 

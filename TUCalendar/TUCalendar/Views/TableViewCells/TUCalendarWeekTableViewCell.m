@@ -14,6 +14,7 @@
 static CGFloat const kCellHeight = 48.f;
 static CGFloat const kDaysViewsInset = 6.f;
 static NSUInteger const kNumberOfDaysInWeek = 7;
+static NSUInteger const kNumberOfMonthInYear = 12;
 
 @implementation TUCalendarWeekTableViewCellAppearance
 
@@ -109,9 +110,9 @@ static NSUInteger const kNumberOfDaysInWeek = 7;
     NSInteger departureDateMonth = [self.calendar component:NSCalendarUnitMonth fromDate:departureDate];
     NSInteger returnDateMonth = [self.calendar component:NSCalendarUnitMonth fromDate:returnDate];
 
-    NSInteger departureMonthAndYearFlag = departureDateMonth + [self.calendar component:kCFCalendarUnitYear fromDate:departureDate] * 12;
-    NSInteger returnMonthAndYearFlag = returnDateMonth + [self.calendar component:kCFCalendarUnitYear fromDate:returnDate] * 12;
-    NSInteger currentMonthAndYearFlag = monthNumber + [self.calendar component:kCFCalendarUnitYear fromDate:currentMonthDate] * 12;
+    NSInteger departureMonthAndYearFlag = departureDateMonth + [self.calendar component:NSCalendarUnitYear fromDate:departureDate] * kNumberOfMonthInYear;
+    NSInteger returnMonthAndYearFlag = returnDateMonth + [self.calendar component:NSCalendarUnitYear fromDate:returnDate] * kNumberOfMonthInYear;
+    NSInteger currentMonthAndYearFlag = monthNumber + [self.calendar component:NSCalendarUnitYear fromDate:currentMonthDate] * kNumberOfMonthInYear;
 
     NSDate *lastDayOfWeek = [self.calendar dateByAddingUnit:NSCalendarUnitDay value:daysCount + 1 toDate:firstDayInWeek options:0];
 

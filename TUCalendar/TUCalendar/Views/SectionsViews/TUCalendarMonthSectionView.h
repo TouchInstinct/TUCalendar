@@ -39,6 +39,6 @@
 
 @property (nonatomic, nonnull) NSCalendar *calendar;
 
-- (void)setDateWithMonthIndex:(NSUInteger)monthIndex andYear:(NSUInteger)year;
+- (void)setMonthIndex:(NSUInteger)monthIndex andYear:(NSUInteger)year;
 
 @end

@@ -85,7 +85,7 @@ static CGFloat const kSectionHeaderHeight = 56.f;
 
 - (void)setupViews {
     UILabel *sectionTitleLabel = [UILabel new];
-    sectionTitleLabel.textAlignment = _monthSectionAppearance.titleLabelTextAlignment;
+    sectionTitleLabel.textAlignment = self.monthSectionAppearance.titleLabelTextAlignment;
     [self addSubview:sectionTitleLabel];
     self.sectionTitleLabel = sectionTitleLabel;
 
@@ -115,7 +115,7 @@ static CGFloat const kSectionHeaderHeight = 56.f;
 
     CGRect sectionTitleLabelFrame;
 
-    if (!_monthSectionAppearance.showWeekDays) {
+    if (!self.monthSectionAppearance.showWeekDays) {
         UIEdgeInsets alignmentTitleLabelRectInsets = _monthSectionAppearance.alignmentTitleLabelRectInsets;
         sectionTitleLabelFrame = CGRectMake(alignmentTitleLabelRectInsets.left,
                                             alignmentTitleLabelRectInsets.top,
@@ -137,7 +137,7 @@ static CGFloat const kSectionHeaderHeight = 56.f;
     self.sectionTitleLabel.frame = sectionTitleLabelFrame;
 }
 
-- (void)setDateWithMonthIndex:(NSUInteger)monthIndex andYear:(NSUInteger)year; {
+- (void)setMonthIndex:(NSUInteger)monthIndex andYear:(NSUInteger)year; {
     self.monthIndex = monthIndex;
     self.year = year;
 }
@@ -148,7 +148,7 @@ static CGFloat const kSectionHeaderHeight = 56.f;
     NSString *sectionTitle = monthName;
 
     if (_monthSectionAppearance.showYear) {
-        sectionTitle = [sectionTitle stringByAppendingString:[NSString stringWithFormat:@" %lu", (unsigned long)self.year]];
+        sectionTitle = [sectionTitle stringByAppendingString:[NSString stringWithFormat:@" %@", @(self.year)]];
     }
 
     self.sectionTitleLabel.text = [sectionTitle capitalizedString];
@@ -171,13 +171,13 @@ static CGFloat const kSectionHeaderHeight = 56.f;
     self.divider.backgroundColor = self.monthSectionAppearance.dividerColor;
 
     self.backgroundColor = self.monthSectionAppearance.backgroundColor;
-    self.sectionTitleLabel.textAlignment = _monthSectionAppearance.titleLabelTextAlignment;
+    self.sectionTitleLabel.textAlignment = self.monthSectionAppearance.titleLabelTextAlignment;
 
     for (UILabel *weekDay in self.daysLabels) {
-        weekDay.hidden = !_monthSectionAppearance.showWeekDays;
+        weekDay.hidden = !self.monthSectionAppearance.showWeekDays;
     }
 
-    self.divider.hidden = !_monthSectionAppearance.showDevider;
+    self.divider.hidden = !self.monthSectionAppearance.showDevider;
 
     [self setSectionTitle];
     [self layoutSubviews];
