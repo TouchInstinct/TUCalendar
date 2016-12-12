@@ -85,7 +85,6 @@ static CGFloat const kSectionHeaderHeight = 56.f;
 
 - (void)setupViews {
     UILabel *sectionTitleLabel = [UILabel new];
-    sectionTitleLabel.textAlignment = self.monthSectionAppearance.titleLabelTextAlignment;
     [self addSubview:sectionTitleLabel];
     self.sectionTitleLabel = sectionTitleLabel;
 
