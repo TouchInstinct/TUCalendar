@@ -14,6 +14,22 @@
 static CGFloat const kCellHeight = 48.f;
 static CGFloat const kDaysViewsInset = 6.f;
 static NSUInteger const kNumberOfDaysInWeek = 7;
+static NSUInteger const kNumberOfMonthInYear = 12;
+
+@implementation TUCalendarWeekTableViewCellAppearance
+
+- (instancetype)init {
+    self = [super init];
+
+    if (self) {
+        self.backgroundColor = [UIColor whiteColor];
+    }
+    
+    return self;
+}
+
+
+@end
 
 @interface TUCalendarWeekTableViewCell () <TUCalendarDayViewDelegate>
 
@@ -36,6 +52,8 @@ static NSUInteger const kNumberOfDaysInWeek = 7;
 }
 
 - (void)setupViews {
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
+
     NSMutableArray<TUCalendarDayView *> *daysViews = [NSMutableArray arrayWithCapacity:kNumberOfDaysInWeek];
     
     for (NSUInteger i = 0; i < kNumberOfDaysInWeek; i++) {
@@ -74,15 +92,27 @@ static NSUInteger const kNumberOfDaysInWeek = 7;
 
 - (void)setFirstDateOfWeek:(nonnull NSDate *)firstDayInWeek
             withDataSource:(nonnull id<TUCalendarWeekTableViewCellDataSource>)dataSource
-               monthNumber:(NSInteger)monthNumber
+          currentMonthDate:(nullable NSDate *)currentMonthDate
              departureDate:(nullable NSDate *)departureDate
                 returnDate:(nullable NSDate *)returnDate {
+    if (!self.weekCellAppearance) {
+        self.weekCellAppearance = [TUCalendarWeekTableViewCellAppearance new];
+    }
+
+    self.backgroundColor = self.weekCellAppearance.backgroundColor;
+    
     NSUInteger daysCount = self.daysViews.count;
 
     NSMutableArray *weekSettings = [NSMutableArray arrayWithCapacity:daysCount];
 
+    NSInteger monthNumber = [self.calendar component:NSCalendarUnitMonth fromDate:currentMonthDate];
+
     NSInteger departureDateMonth = [self.calendar component:NSCalendarUnitMonth fromDate:departureDate];
     NSInteger returnDateMonth = [self.calendar component:NSCalendarUnitMonth fromDate:returnDate];
+
+    NSInteger departureMonthAndYearFlag = departureDateMonth + [self.calendar component:NSCalendarUnitYear fromDate:departureDate] * kNumberOfMonthInYear;
+    NSInteger returnMonthAndYearFlag = returnDateMonth + [self.calendar component:NSCalendarUnitYear fromDate:returnDate] * kNumberOfMonthInYear;
+    NSInteger currentMonthAndYearFlag = monthNumber + [self.calendar component:NSCalendarUnitYear fromDate:currentMonthDate] * kNumberOfMonthInYear;
 
     NSDate *lastDayOfWeek = [self.calendar dateByAddingUnit:NSCalendarUnitDay value:daysCount + 1 toDate:firstDayInWeek options:0];
 
@@ -101,28 +131,29 @@ static NSUInteger const kNumberOfDaysInWeek = 7;
             BOOL returnDateOnThisWeek = [returnDate isDateBetweenStartDate:firstDayInWeek andEndDate:lastDayOfWeek];
 
             if (departureDateOnThisWeek && returnDateOnThisWeek) {
-                if (departureDateMonth == returnDateMonth) {
-                    if (departureDateMonth != monthNumber
-                            || [currentDayDate compare:returnDate] == NSOrderedDescending
-                            || [currentDayDate compare:departureDate] == NSOrderedAscending)
+                if (departureMonthAndYearFlag == returnMonthAndYearFlag) {
+                    if (departureMonthAndYearFlag != currentMonthAndYearFlag
+                        || [currentDayDate compare:returnDate] == NSOrderedDescending
+                        || [currentDayDate compare:departureDate] == NSOrderedAscending)
                         currentDateSettings.selectionOptions = TUCalendarDayViewSelectionNone;
-                } else if ([currentDayDate compare:returnDate] == NSOrderedDescending && returnDateMonth <= monthNumber) {
+                } else if ([currentDayDate compare:returnDate] == NSOrderedDescending
+                           && returnMonthAndYearFlag <= currentMonthAndYearFlag) {
                     currentDateSettings.selectionOptions = TUCalendarDayViewSelectionNone;
                 } else {
                     currentDateSettings.selectionOptions = TUCalendarDayViewSelectionFull;
                 }
             } else if (departureDateOnThisWeek) {
-                if (monthNumber > departureDateMonth) {
+                if (currentMonthAndYearFlag > departureMonthAndYearFlag) {
                     currentDateSettings.selectionOptions = TUCalendarDayViewSelectionFull;
                 } else if ([currentDayDate compare:departureDate] == NSOrderedAscending
-                        || monthNumber < departureDateMonth) {
+                           || currentMonthAndYearFlag < departureMonthAndYearFlag) {
                     currentDateSettings.selectionOptions = TUCalendarDayViewSelectionNone;
                 }
             } else if (returnDateOnThisWeek) {
-                if (monthNumber < returnDateMonth) {
+                if (currentMonthAndYearFlag < returnMonthAndYearFlag) {
                     currentDateSettings.selectionOptions = TUCalendarDayViewSelectionFull;
                 } else if ([currentDayDate compare:returnDate] == NSOrderedDescending
-                        || monthNumber > returnDateMonth) {
+                           || currentMonthAndYearFlag > returnMonthAndYearFlag) {
                     currentDateSettings.selectionOptions = TUCalendarDayViewSelectionNone;
                 }
             }
@@ -145,6 +176,12 @@ static NSUInteger const kNumberOfDaysInWeek = 7;
 
 - (void)calendarDayView:(TUCalendarDayView *)calendarViewController didSelectDate:(NSDate *)date {
     [self.delegate calendarWeekTableViewCellSelectDate:date];
+}
+
+- (void)setWeekCellAppearance:(TUCalendarWeekTableViewCellAppearance *)weekCellAppearance {
+    _weekCellAppearance = weekCellAppearance;
+
+    self.backgroundColor = self.weekCellAppearance.backgroundColor;
 }
 
 #pragma mark - TUStaticViewHeightProtocol

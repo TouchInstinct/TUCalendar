@@ -23,16 +23,24 @@
 
 @end
 
+@interface TUCalendarWeekTableViewCellAppearance : NSObject
+
+@property (nonatomic, nonnull) UIColor *backgroundColor;
+
+@end
+
 @interface TUCalendarWeekTableViewCell : UITableViewCell <TUStaticViewHeightProtocol>
 
 @property (nonatomic, nullable, weak) id<TUCalendarWeekTableViewCellDelegate> delegate;
 
 - (void)setFirstDateOfWeek:(nonnull NSDate *)firstDayInWeek
             withDataSource:(nonnull id<TUCalendarWeekTableViewCellDataSource>)dataSource
-               monthNumber:(NSInteger)monthNumber
+          currentMonthDate:(nullable NSDate *)currentMonthDate
              departureDate:(nullable NSDate *)departureDate
                 returnDate:(nullable NSDate *)returnDate;
 
 @property (nonatomic, nonnull, strong) NSCalendar *calendar;
+
+@property (nonatomic, nonnull) TUCalendarWeekTableViewCellAppearance* weekCellAppearance UI_APPEARANCE_SELECTOR;
 
 @end

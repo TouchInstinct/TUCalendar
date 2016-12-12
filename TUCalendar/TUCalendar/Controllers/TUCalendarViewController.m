@@ -18,8 +18,6 @@
 
 static const NSInteger kNumberOfDaysInWeek = 7;
 
-static const CGFloat kSectionHeaderHeight = 56.f;
-
 
 @interface TUCalendarViewController () <UITableViewDataSource, UITableViewDelegate, TUCalendarWeekTableViewCellDataSource, TUCalendarWeekTableViewCellDelegate> {
     NSMutableDictionary<NSDate *, TUCalendarDayViewState *> *_calculatedSettings;
@@ -202,10 +200,11 @@ static const CGFloat kSectionHeaderHeight = 56.f;
 
         TUCalendarMonthSectionView *monthSectionView = [TUCalendarMonthSectionView new];
         NSInteger currentMonth = [self.calendar component:NSCalendarUnitMonth fromDate:_today];
+        NSInteger nextMonthYear = [self.calendar component:NSCalendarUnitYear fromDate:nextMonthDate];
         NSInteger sectionMonthIndex = (currentMonth + i - 1) % _numberOfMonthsInYear;
 
         monthSectionView.calendar = self.calendar;
-        monthSectionView.monthIndex = (NSUInteger) sectionMonthIndex;
+        [monthSectionView setMonthIndex:sectionMonthIndex andYear: nextMonthYear];
 
         mutablePreloadedMonthViews[i] = monthSectionView;
 
@@ -242,7 +241,7 @@ static const CGFloat kSectionHeaderHeight = 56.f;
 
     [weekCell setFirstDateOfWeek:rowFirstDayInWeek
                   withDataSource:self
-                     monthNumber:[self.calendar component:NSCalendarUnitMonth fromDate:monthDateForSection]
+                currentMonthDate:monthDateForSection
                    departureDate:self.departureDate
                       returnDate:self.returnDate];
 
@@ -275,7 +274,7 @@ static const CGFloat kSectionHeaderHeight = 56.f;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return kSectionHeaderHeight;
+    return [TUCalendarMonthSectionView appearance].monthSectionAppearance.sectionHeaderHeight;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {

@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'TUCalendar'
-  s.version          = '1.2.0'
+  s.version          = '1.3.0'
   s.summary          = 'A short description of TUCalendar.'
 
   s.description      = <<-DESC

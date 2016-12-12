@@ -42,7 +42,6 @@ typedef NS_OPTIONS(NSUInteger, TUCalendarDayViewSelectionOptions) {
 
 @interface TUCalendarDayViewAppearance : NSObject
 
-@property (nonatomic, nonnull) UIColor *highlightedBackgroundColor;
 @property (nonatomic, nonnull) UIColor *selectedBackgroundColor;
 
 @property (nonatomic, nonnull) UIImage *highlightedBackgroundImage;
@@ -52,10 +51,12 @@ typedef NS_OPTIONS(NSUInteger, TUCalendarDayViewSelectionOptions) {
 @property (nonatomic, nonnull) UIColor *titleColor;
 @property (nonatomic, nonnull) UIColor *hightlightedTitleColor;
 @property (nonatomic, nonnull) UIColor *disabledTitleColor;
+@property (nonatomic, nonnull) UIColor *rangeTitleColor;
 
 @property (nonatomic, nonnull) UIFont *todayTitleFont;
 @property (nonatomic, nonnull) UIColor *todayTitleColor;
 @property (nonatomic, nonnull) NSString *todayText;
+@property (nonatomic) BOOL isTodaySelected;
 
 @property (nonatomic, nonnull) UIColor *backgroundColor;
 
