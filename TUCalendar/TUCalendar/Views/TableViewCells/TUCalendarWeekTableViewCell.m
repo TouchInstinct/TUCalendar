@@ -107,11 +107,14 @@ static NSUInteger const kNumberOfMonthInYear = 12;
 
     NSInteger monthNumber = [self.calendar component:NSCalendarUnitMonth fromDate:currentMonthDate];
 
-    NSInteger departureDateMonth = [self.calendar component:NSCalendarUnitMonth fromDate:departureDate];
-    NSInteger returnDateMonth = [self.calendar component:NSCalendarUnitMonth fromDate:returnDate];
+    NSInteger departureDateMonth = departureDate ? [self.calendar component:NSCalendarUnitMonth fromDate:departureDate] : 0;
+    NSInteger returnDateMonth = returnDate ? [self.calendar component:NSCalendarUnitMonth fromDate:returnDate] : 0;
 
-    NSInteger departureMonthAndYearFlag = departureDateMonth + [self.calendar component:NSCalendarUnitYear fromDate:departureDate] * kNumberOfMonthInYear;
-    NSInteger returnMonthAndYearFlag = returnDateMonth + [self.calendar component:NSCalendarUnitYear fromDate:returnDate] * kNumberOfMonthInYear;
+    NSInteger departureDateYear = departureDate ? [self.calendar component:NSCalendarUnitYear fromDate:departureDate] : 0;
+    NSInteger returnDateYear = returnDate ? [self.calendar component:NSCalendarUnitYear fromDate:returnDate] : 0;
+
+    NSInteger departureMonthAndYearFlag = departureDateMonth + departureDateYear * kNumberOfMonthInYear;
+    NSInteger returnMonthAndYearFlag = returnDateMonth + returnDateYear * kNumberOfMonthInYear;
     NSInteger currentMonthAndYearFlag = monthNumber + [self.calendar component:NSCalendarUnitYear fromDate:currentMonthDate] * kNumberOfMonthInYear;
 
     NSDate *lastDayOfWeek = [self.calendar dateByAddingUnit:NSCalendarUnitDay value:daysCount + 1 toDate:firstDayInWeek options:0];
